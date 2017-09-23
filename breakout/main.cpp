@@ -51,6 +51,10 @@ int main(int argc, char** argv) {
 	}
 
 	// All the action goes here.
+	SDL_Surface* helloworld = SDL_LoadBMP("hello_world.bmp");
+	SDL_BlitSurface(helloworld, NULL, gScreenSurface, NULL);
+	SDL_UpdateWindowSurface(gWindow);
+
 	SDL_Delay(2000);
 
 	close();
