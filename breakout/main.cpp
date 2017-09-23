@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
 
 const int SCREEN_WIDTH = 800;
@@ -14,6 +15,13 @@ bool initialize() {
 	// Initialize SDL and the subsystems you want to use.
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		SDL_Log("Unable to initialize SDL: %s\n", SDL_GetError());
+		return false;
+	}
+
+	// Initialize PNG loading
+	int img_flags = IMG_INIT_PNG;
+	if (IMG_Init(img_flags) != img_flags) {
+		SDL_Log("Unable to initialize SDL_Image: %s", IMG_GetError());
 		return false;
 	}
 
@@ -50,9 +58,12 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
-	// All the action goes here.
-	SDL_Surface* helloworld = SDL_LoadBMP("hello_world.bmp");
-	SDL_BlitSurface(helloworld, NULL, gScreenSurface, NULL);
+	// Copy BMP onto SDL_Surface 
+	SDL_Surface* helloworld = IMG_Load("hello_world.png");
+	SDL_Surface* optHelloworld = SDL_ConvertSurface(helloworld, gScreenSurface->format, NULL);
+	// Copy helloworld surface to window surface.
+	SDL_BlitSurface(optHelloworld, NULL, gScreenSurface, NULL);
+	// Update the window surface.
 	SDL_UpdateWindowSurface(gWindow);
 
 	SDL_Delay(2000);
