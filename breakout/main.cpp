@@ -33,6 +33,13 @@ bool initialize() {
 		SDL_Log("Unable to initialize TTF fonts: %s\n", TTF_GetError());
 	}
 
+	// Initialize Font.
+	gFont = TTF_OpenFont("assets/fonts/kenpixel_high.ttf", FONT_SIZE_PT);
+	if (gFont == NULL) {
+		SDL_Log("Failed to load text font: %s\n", TTF_GetError());
+		return 1;
+	}
+
 	// Initialize the Window.
 	gWindow = SDL_CreateWindow(
 		SCREEN_NAME,
@@ -42,6 +49,7 @@ bool initialize() {
 		SCREEN_HEIGHT,
 		SDL_WINDOW_SHOWN
 	);
+
 	if (gWindow == NULL) {
 		SDL_Log("Unable to create window: %s\n", SDL_GetError());
 		return false;
@@ -67,20 +75,16 @@ int main(int argc, char** argv) {
 	}
 
 	// Copy a blue ball PNG onto SDL_Surface 
-	SDL_Surface* blueBall = IMG_Load("assets/puzzlepack/png/ballBlue.png");
+	SDL_Surface* blueBall = IMG_Load("assets/puzzlepack/png/element_green_rectangle.png");
+	SDL_Color textColor = { 255, 255, 255 };
+	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, "Hello, World!", textColor);
+	SDL_Surface* convTextSurface = SDL_ConvertSurface(textSurface, blueBall->format, 0);
 	// Print blueBall surface to window surface.
-	SDL_BlitSurface(blueBall, NULL, gScreenSurface, NULL);
+	SDL_BlitSurface(blueBall, NULL, convTextSurface, NULL);
 	// Update the window surface.
 	SDL_UpdateWindowSurface(gWindow);
 
-	gFont = TTF_OpenFont("assets/fonts/kenpixel_high.ttf", FONT_SIZE_PT);
-	if (gFont == NULL) {
-		SDL_Log("Failed to load text font: %s\n", TTF_GetError());
-		return 1;
-	}
-	SDL_Color textColor = { 255, 255, 255 };
-	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, "Hello, World!", textColor);
-	SDL_BlitSurface(textSurface, NULL, gScreenSurface, NULL);
+	SDL_BlitSurface(convTextSurface, NULL, gScreenSurface, NULL);
 	SDL_UpdateWindowSurface(gWindow);
 
 	SDL_Event event;
