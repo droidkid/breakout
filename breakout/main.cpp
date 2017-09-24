@@ -1,15 +1,18 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
+#include <SDL_ttf.h>
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
+const int FONT_SIZE_PT = 28;
 const char* SCREEN_NAME = "Breakout!";
 
 // TODO(chesetti): What's the best way to handle error checking?
 
 SDL_Window* gWindow = NULL;
 SDL_Surface* gScreenSurface = NULL;
+TTF_Font* gFont = NULL;
 
 bool initialize() {
 	// Initialize SDL and the subsystems you want to use.
@@ -18,11 +21,16 @@ bool initialize() {
 		return false;
 	}
 
-	// Initialize PNG loading
+	// Initialize SDL_IMG 
 	int img_flags = IMG_INIT_PNG;
 	if (IMG_Init(img_flags) != img_flags) {
 		SDL_Log("Unable to initialize SDL_Image: %s", IMG_GetError());
 		return false;
+	}
+
+	// Initialize SDL_TTf
+	if (TTF_Init() != 0) {
+		SDL_Log("Unable to initialize TTF fonts: %s\n", TTF_GetError());
 	}
 
 	// Initialize the Window.
@@ -59,10 +67,20 @@ int main(int argc, char** argv) {
 	}
 
 	// Copy a blue ball PNG onto SDL_Surface 
-	SDL_Surface* blueBall = IMG_Load("puzzlepack/png/ballBlue.png");
+	SDL_Surface* blueBall = IMG_Load("assets/puzzlepack/png/ballBlue.png");
 	// Print blueBall surface to window surface.
 	SDL_BlitSurface(blueBall, NULL, gScreenSurface, NULL);
 	// Update the window surface.
+	SDL_UpdateWindowSurface(gWindow);
+
+	gFont = TTF_OpenFont("assets/fonts/kenpixel_high.ttf", FONT_SIZE_PT);
+	if (gFont == NULL) {
+		SDL_Log("Failed to load text font: %s\n", TTF_GetError());
+		return 1;
+	}
+	SDL_Color textColor = { 255, 255, 255 };
+	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, "Hello, World!", textColor);
+	SDL_BlitSurface(textSurface, NULL, gScreenSurface, NULL);
 	SDL_UpdateWindowSurface(gWindow);
 
 	SDL_Event event;
