@@ -58,17 +58,22 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
-	// Copy BMP onto SDL_Surface 
-	SDL_Surface* helloworld = IMG_Load("hello_world.png");
-	SDL_Surface* optHelloworld = SDL_ConvertSurface(helloworld, gScreenSurface->format, NULL);
-	// Copy helloworld surface to window surface.
-	SDL_BlitSurface(optHelloworld, NULL, gScreenSurface, NULL);
+	// Copy a blue ball PNG onto SDL_Surface 
+	SDL_Surface* blueBall = IMG_Load("puzzlepack/png/ballBlue.png");
+	// Print blueBall surface to window surface.
+	SDL_BlitSurface(blueBall, NULL, gScreenSurface, NULL);
 	// Update the window surface.
 	SDL_UpdateWindowSurface(gWindow);
 
-	SDL_Delay(2000);
+	SDL_Event event;
+	bool quit = false;
+	while (!quit) {
+		SDL_PollEvent(&event);
+		if (event.type == SDL_QUIT) {
+			quit = true;
+		}
+	}
 
 	close();
-
 	return 0;
 }
