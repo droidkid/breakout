@@ -17,7 +17,9 @@ TTF_Font *gFont = NULL;
 class RectSprite {
 
 	SDL_Texture *texture;
-	SDL_Rect boundingBox;
+	SDL_Rect bBox;
+	int xVel;
+	int yVel;
 
 public:
 	// TODO(chesetti): Use creator methods?
@@ -26,10 +28,13 @@ public:
 		SDL_Surface* surface = IMG_Load(png_file_path);
 
 		// Initialize Bounding Box
-		boundingBox.x = 0;
-		boundingBox.y = 0;
-		boundingBox.w = surface->w;
-		boundingBox.h = surface->h;
+		bBox.x = 0;
+		bBox.y = 0;
+		bBox.w = surface->w;
+		bBox.h = surface->h;
+
+		xVel = -10;
+		yVel = -10;
 
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
@@ -40,13 +45,25 @@ public:
 			renderer, 
 			texture
 			, NULL /*Src Rect - All of it*/, 
-			&boundingBox
+			&bBox
 		);
 	}
 
 	void update() {
-		boundingBox.x += 10;
-		boundingBox.y += 10;
+		if (bBox.x <= 0) {
+			xVel = -xVel;
+		}
+		if (bBox.x + bBox.w >= SCREEN_WIDTH) {
+			xVel = -xVel;
+		}
+		if (bBox.y <= 0) {
+			yVel = -yVel;
+		}
+		if (bBox.y + bBox.h >= SCREEN_HEIGHT) {
+			yVel = -yVel;
+		}
+		bBox.x += xVel;
+		bBox.y += yVel;
 	}
 
 };
