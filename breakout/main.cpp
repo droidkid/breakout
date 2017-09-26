@@ -14,6 +14,43 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer *gRenderer = NULL;
 TTF_Font *gFont = NULL;
 
+class RectSprite {
+
+	SDL_Texture *texture;
+	SDL_Rect boundingBox;
+
+public:
+	// TODO(chesetti): Use creator methods?
+	RectSprite(SDL_Renderer *renderer, char *png_file_path) {
+		// TODO(chesettI): Pass in the texture here... this way you can reuse textures.
+		SDL_Surface* surface = IMG_Load(png_file_path);
+
+		// Initialize Bounding Box
+		boundingBox.x = 0;
+		boundingBox.y = 0;
+		boundingBox.w = surface->w;
+		boundingBox.h = surface->h;
+
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
+		SDL_FreeSurface(surface);
+	}
+
+	void draw(SDL_Renderer *renderer) {
+		SDL_RenderCopy(
+			renderer, 
+			texture
+			, NULL /*Src Rect - All of it*/, 
+			&boundingBox
+		);
+	}
+
+	void update() {
+		boundingBox.x += 10;
+		boundingBox.y += 10;
+	}
+
+};
+
 bool initialize() {
 	// Initialize SDL 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -48,7 +85,7 @@ bool loadResources() {
 	/*
 		Using SDL_WINDOW_SHOWN_MODE, which puts the game in a window. If using a full screen mode
 		like SDL_WINDOW_FULLSCREEN_DESKTOP. You might want to use something like
-		
+
 		SDL_RenderSetLogicalSize(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		Develop for WIDTH*HEIGHT, SDL will handle the scaling to full screen.
@@ -85,20 +122,7 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
-	// Copy a blue ball PNG onto SDL_Surface 
-	SDL_Surface* greenBrickSurface = IMG_Load("assets/puzzlepack/png/element_green_rectangle.png");
-	SDL_Texture *greenBrickTexture = SDL_CreateTextureFromSurface(gRenderer, greenBrickSurface);
-	SDL_FreeSurface(greenBrickSurface);
-	SDL_Rect rect;
-	rect.x = 0;
-	rect.y = 0;
-	rect.h = greenBrickSurface->h;
-	rect.w = greenBrickSurface->w;
-
-	SDL_RenderClear(gRenderer);
-	SDL_RenderCopy(gRenderer, greenBrickTexture, &rect, &rect);
-	SDL_RenderPresent(gRenderer);
-
+	RectSprite ballBlue = RectSprite(gRenderer, "assets/puzzlepack/png/ballBlue.png");
 
 	// Application Loop + Event Polling
 	SDL_Event event;
@@ -108,6 +132,13 @@ int main(int argc, char** argv) {
 		if (event.type == SDL_QUIT) {
 			quit = true;
 		}
+		SDL_Delay(33);
+
+		ballBlue.update();
+
+		SDL_RenderClear(gRenderer);
+		ballBlue.draw(gRenderer);
+		SDL_RenderPresent(gRenderer);
 	}
 
 	close();
