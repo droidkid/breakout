@@ -3,12 +3,14 @@
 #include <stdio.h>
 #include <SDL_ttf.h>
 
+const char* SCREEN_NAME = "Breakout!";
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 const int FONT_SIZE_PT = 28;
-const char* SCREEN_NAME = "Breakout!";
-const int FRAMES_PER_SECOND = 30;
-const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
+
+const int UPDATES_PER_SECOND = 80; // GAME SPEED, game is updated this times a second
+const int MS_PER_UPDATE = 1000 / UPDATES_PER_SECOND;
+
 
 // TODO(chesetti): What's the best way to handle error checking?
 
@@ -20,8 +22,11 @@ class RectSprite {
 
 	SDL_Texture *texture;
 	SDL_Rect bBox;
-	int xVel;
-	int yVel;
+	double xVel;
+	double yVel;
+	double x;
+	double y;
+	Uint32 last_update_ms;
 
 public:
 	// TODO(chesetti): Use creator methods?
@@ -30,28 +35,41 @@ public:
 		SDL_Surface* surface = IMG_Load(png_file_path);
 
 		// Initialize Bounding Box
-		bBox.x = 0;
-		bBox.y = 0;
+		x = 1;
+		y = 1;
+		bBox.x = 1;
+		bBox.y = 1;
 		bBox.w = surface->w;
 		bBox.h = surface->h;
+		xVel = 1; // Pixels per millisecond
+		yVel = 0.5; // Pixels per millisecond
 
-		xVel = -10;
-		yVel = -10;
+		// Is this the right place to initialize this? Maybe first time update is called would be a better place.
+		last_update_ms = SDL_GetTicks();
+
 
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
 	}
 
-	void draw(SDL_Renderer *renderer) {
+	void draw(SDL_Renderer *renderer, double interpolation) {
+
+		printf("%f\n", interpolation);
+		bBox.x = (int)(x + xVel * interpolation);
+		bBox.y = (int)(y + yVel * interpolation);
+
 		SDL_RenderCopy(
-			renderer, 
+			renderer,
 			texture
-			, NULL /*Src Rect - All of it*/, 
+			, NULL /*Src Rect - All of it*/,
 			&bBox
 		);
 	}
 
 	void update() {
+		int ticks_passed_ms = SDL_GetTicks() - last_update_ms;
+		last_update_ms += ticks_passed_ms;
+
 		if (bBox.x <= 0) {
 			xVel = -xVel;
 		}
@@ -64,8 +82,12 @@ public:
 		if (bBox.y + bBox.h >= SCREEN_HEIGHT) {
 			yVel = -yVel;
 		}
-		bBox.x += xVel;
-		bBox.y += yVel;
+
+		x += xVel * ticks_passed_ms;
+		y += yVel * ticks_passed_ms;
+
+		printf("%d\n", ticks_passed_ms);
+
 	}
 
 };
@@ -149,27 +171,31 @@ int main(int argc, char** argv) {
 	SDL_Event event;
 	bool quit = false;
 
-	Uint32 startTime = SDL_GetTicks();
+	Uint32 current_state_ms = SDL_GetTicks();
+	Uint32 lag_ms = 0;
 
 	while (!quit) {
-		startTime = SDL_GetTicks();
 
 		SDL_PollEvent(&event);
 		if (event.type == SDL_QUIT) {
 			quit = true;
 		}
+	
+		lag_ms += SDL_GetTicks() - current_state_ms;
+		current_state_ms = SDL_GetTicks();
 
-		ballBlue.update();
+		while (
+			lag_ms >= MS_PER_UPDATE
+		) {
+			ballBlue.update();
+			lag_ms -= MS_PER_UPDATE;
+		}
+
 
 		SDL_RenderClear(gRenderer);
-		ballBlue.draw(gRenderer);
+		ballBlue.draw(gRenderer, (1.0 * lag_ms)/MS_PER_UPDATE);
 		SDL_RenderPresent(gRenderer);
 
-		int sleep_time = SKIP_TICKS - (SDL_GetTicks() - startTime);
-
-		if (sleep_time > 0) {
-			SDL_Delay(sleep_time);
-		}
 	}
 
 	close();
