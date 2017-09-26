@@ -20,67 +20,56 @@ TTF_Font *gFont = NULL;
 
 class RectSprite {
 
-	SDL_Texture *texture;
+	SDL_Texture *spriteTexture;
 	SDL_Rect bBox;
-	double xVel;
-	double yVel;
 	double x;
 	double y;
-	Uint32 last_update_ms;
+	double xVel;
+	double yVel;
 
 public:
 	// TODO(chesetti): Use creator methods?
-	RectSprite(SDL_Renderer *renderer, char *png_file_path) {
-		// TODO(chesettI): Pass in the texture here... this way you can reuse textures.
-		SDL_Surface* surface = IMG_Load(png_file_path);
+	RectSprite(SDL_Rect rect, SDL_Texture *texture, double xVel, double yVel) {
 
 		// Initialize Bounding Box
-		x = 1;
-		y = 1;
-		bBox.x = 1;
-		bBox.y = 1;
-		bBox.w = surface->w;
-		bBox.h = surface->h;
-		xVel = 1; // Pixels per millisecond
-		yVel = 0.5; // Pixels per millisecond
-
-		// Is this the right place to initialize this? Maybe first time update is called would be a better place.
-		last_update_ms = SDL_GetTicks();
-
-
-		texture = SDL_CreateTextureFromSurface(renderer, surface);
-		SDL_FreeSurface(surface);
+		this->x = bBox.x;
+		this->y = bBox.y;
+		this->bBox = SDL_Rect(rect);
+		this->xVel = xVel; // Pixels per millisecond
+		this->yVel = yVel; // Pixels per millisecond
+		this->spriteTexture = texture;
 	}
 
 	void draw(SDL_Renderer *renderer, double interpolation) {
 
-		printf("%f\n", interpolation);
 		bBox.x = (int)(x + xVel * interpolation);
 		bBox.y = (int)(y + yVel * interpolation);
 
+		printf("%d %d\n", bBox.x, bBox.y);
+
 		SDL_RenderCopy(
 			renderer,
-			texture
+			spriteTexture
 			, NULL /*Src Rect - All of it*/,
 			&bBox
 		);
 	}
 
 	void update() {
-		int ticks_passed_ms = SDL_GetTicks() - last_update_ms;
-		last_update_ms += ticks_passed_ms;
+		int ticks_passed_ms = MS_PER_UPDATE;
 
-		if (bBox.x <= 0) {
+		if (x <= 0 && xVel < 0) {
 			xVel = -xVel;
 		}
-		if (bBox.x + bBox.w >= SCREEN_WIDTH) {
+		if (x + bBox.w >= SCREEN_WIDTH && xVel > 0) {
 			xVel = -xVel;
 		}
-		if (bBox.y <= 0) {
+		if (y <= 0 && yVel < 0) {
 			yVel = -yVel;
 		}
-		if (bBox.y + bBox.h >= SCREEN_HEIGHT) {
+		if (y + bBox.h >= SCREEN_HEIGHT && yVel > 0) {
 			yVel = -yVel;
+
 		}
 
 		x += xVel * ticks_passed_ms;
@@ -163,7 +152,18 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
-	RectSprite ballBlue = RectSprite(gRenderer, "assets/puzzlepack/png/ballBlue.png");
+	SDL_Rect r;
+	r.x = 100;
+	r.y = 100;
+	r.w = 20;
+	r.h = 20;
+	SDL_Surface *blueSurface = IMG_Load("assets/puzzlepack/png/ballBlue.png");
+	SDL_Texture *blueTexture = SDL_CreateTextureFromSurface(gRenderer, blueSurface);
+	SDL_Surface* greySurface = IMG_Load("assets/puzzlepack/png/ballGrey.png");
+	SDL_Texture *greyTexture = SDL_CreateTextureFromSurface(gRenderer, greySurface);
+
+	RectSprite ballBlue = RectSprite(r, blueTexture, 1.0, 1.0);
+	RectSprite ballGrey = RectSprite(r, greyTexture, 0.3, -1.0);
 
 
 
@@ -188,12 +188,14 @@ int main(int argc, char** argv) {
 			lag_ms >= MS_PER_UPDATE
 		) {
 			ballBlue.update();
+			ballGrey.update();
 			lag_ms -= MS_PER_UPDATE;
 		}
 
 
 		SDL_RenderClear(gRenderer);
 		ballBlue.draw(gRenderer, (1.0 * lag_ms)/MS_PER_UPDATE);
+		ballGrey.draw(gRenderer, (1.0 * lag_ms)/MS_PER_UPDATE);
 		SDL_RenderPresent(gRenderer);
 
 	}
