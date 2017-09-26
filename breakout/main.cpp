@@ -7,6 +7,8 @@ const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 const int FONT_SIZE_PT = 28;
 const char* SCREEN_NAME = "Breakout!";
+const int FRAMES_PER_SECOND = 30;
+const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
 // TODO(chesetti): What's the best way to handle error checking?
 
@@ -141,21 +143,33 @@ int main(int argc, char** argv) {
 
 	RectSprite ballBlue = RectSprite(gRenderer, "assets/puzzlepack/png/ballBlue.png");
 
-	// Application Loop + Event Polling
+
+
+	// Game loop
 	SDL_Event event;
 	bool quit = false;
+
+	Uint32 startTime = SDL_GetTicks();
+
 	while (!quit) {
+		startTime = SDL_GetTicks();
+
 		SDL_PollEvent(&event);
 		if (event.type == SDL_QUIT) {
 			quit = true;
 		}
-		SDL_Delay(33);
 
 		ballBlue.update();
 
 		SDL_RenderClear(gRenderer);
 		ballBlue.draw(gRenderer);
 		SDL_RenderPresent(gRenderer);
+
+		int sleep_time = SKIP_TICKS - (SDL_GetTicks() - startTime);
+
+		if (sleep_time > 0) {
+			SDL_Delay(sleep_time);
+		}
 	}
 
 	close();
