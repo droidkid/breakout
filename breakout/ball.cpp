@@ -1,21 +1,9 @@
-#ifndef SDL_LIB
-#define SDL_LIB
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#endif
-
-
-#ifndef GAME
-#define GAME
-
 #include "game_constants.h"
 #include "ball.h"
-
-#endif
-
 
 using namespace GameConstants;
 

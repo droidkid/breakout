@@ -1,13 +1,8 @@
 #pragma once
 
-#ifndef SDL_LIB
-#define SDL_LIB
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
-#endif
 
 class Ball {
 	SDL_Rect boundingBox;

@@ -1,21 +1,12 @@
-#ifndef SDL_LIB
-#define SDL_LIB
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#endif
-
-#ifndef GAME
-#define GAME
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "game_constants.h"
 #include "ball.h"
-
-#endif
-
-
 
 using namespace GameConstants;
 
@@ -34,7 +25,8 @@ SDL_Texture *ballTexture;
 TTF_Font *gFont = NULL;
 
 // GameObjects
-Ball blueBall;
+const int numBalls = 150;
+Ball balls[numBalls];
 
 
 bool initialize() {
@@ -108,10 +100,15 @@ void close() {
 }
 
 void initializeGameObjects() {
-	blueBall.setBallVelocity(0.1, 0.1);
-	blueBall.setBoundingBox(50, 50, 30, 30);
-	blueBall.setTexture(ballTexture);
+	for (int i = 0; i < numBalls; i++) {
+		double vel = 0.02;
+		int ballSize = rand() % 40 + 20;
+		balls[i].setBallVelocity(vel * (rand() % 30), vel * (rand() % 30));
+		balls[i].setBoundingBox(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, ballSize, ballSize);
+		balls[i].setTexture(ballTexture);
+	}
 }
+
 
 void handle_input() {
 	SDL_PollEvent(&event);
@@ -121,12 +118,16 @@ void handle_input() {
 }
 
 void update() {
-	blueBall.update();
+	for (int i = 0; i < numBalls; i++) {
+		balls[i].update();
+	}
 }
 
 void draw() {
 	SDL_RenderClear(gRenderer);
-	blueBall.draw(gRenderer, (1.0 * lag_ms) / MS_PER_UPDATE);
+	for (int i = 0; i < numBalls; i++) {
+		balls[i].draw(gRenderer, (1.0 * lag_ms) / MS_PER_UPDATE);
+	}
 	SDL_RenderPresent(gRenderer);
 
 }
