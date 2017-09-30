@@ -11,15 +11,14 @@ const int FONT_SIZE_PT = 28;
 const int UPDATES_PER_SECOND = 80; // GAME SPEED, game is updated this times a second
 const int MS_PER_UPDATE = 1000 / UPDATES_PER_SECOND;
 
+SDL_Event event;
+Uint32 current_state_ms;
+Uint32 lag_ms = 0;
+bool quit = false;
 
-// TODO(chesetti): What's the best way to handle error checking?
 
-SDL_Window* gWindow = NULL;
-SDL_Renderer *gRenderer = NULL;
-TTF_Font *gFont = NULL;
 
 class RectSprite {
-
 	SDL_Texture *spriteTexture;
 	SDL_Rect bBox;
 	double x;
@@ -29,14 +28,21 @@ class RectSprite {
 
 public:
 	// TODO(chesetti): Use creator methods?
-	RectSprite(SDL_Rect rect, SDL_Texture *texture, double xVel, double yVel) {
+	void initialize(int x, int y, int w, int h, SDL_Texture *texture, double xVel, double yVel) {
 
 		// Initialize Bounding Box
-		this->x = bBox.x;
-		this->y = bBox.y;
-		this->bBox = SDL_Rect(rect);
+		this->x = x;
+		this->y = y;
+
+
+		this->bBox.x = x;
+		this->bBox.y = y;
+		this->bBox.w = w;
+		this->bBox.h = h;
+
 		this->xVel = xVel; // Pixels per millisecond
 		this->yVel = yVel; // Pixels per millisecond
+
 		this->spriteTexture = texture;
 	}
 
@@ -81,6 +87,19 @@ public:
 
 };
 
+SDL_Window *gWindow = NULL;
+SDL_Renderer *gRenderer = NULL;
+
+// Textures
+SDL_Texture *greenBrickTexture;
+SDL_Texture *ballTexture;
+
+// Fonts
+TTF_Font *gFont = NULL;
+
+// GameObjects
+RectSprite ball;
+
 bool initialize() {
 	// Initialize SDL 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -98,17 +117,6 @@ bool initialize() {
 	// Initialize SDL_ttf
 	if (TTF_Init() != 0) {
 		SDL_Log("Unable to initialize SDL_ttf: %s\n", TTF_GetError());
-		return false;
-	}
-
-	return true;
-}
-
-bool loadResources() {
-	// Load Font.
-	gFont = TTF_OpenFont("assets/fonts/kenpixel_high.ttf", FONT_SIZE_PT);
-	if (gFont == NULL) {
-		SDL_Log("Failed to load text font: %s\n", TTF_GetError());
 		return false;
 	}
 
@@ -132,6 +140,26 @@ bool loadResources() {
 		return false;
 	}
 
+	return true;
+}
+
+bool loadResources() {
+	// Load Font.
+	// TODO(chesetti): Remove Hardcoding
+	gFont = TTF_OpenFont("assets/fonts/kenpixel_high.ttf", FONT_SIZE_PT);
+	if (gFont == NULL) {
+		SDL_Log("Failed to load text font: %s\n", TTF_GetError());
+		return false;
+	}
+
+	// TODO(chesetti): Error handling, Remove hardcoding.
+	SDL_Surface *surface = IMG_Load("assets/puzzlepack/png/ballBlue.png");
+	ballTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
+	SDL_FreeSurface(surface);
+
+	surface = IMG_Load("assets/puzzlepack/png/element_green_rectangle.png");
+	greenBrickTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
+	SDL_FreeSurface(surface);
 
 	return true;
 
@@ -142,6 +170,32 @@ void close() {
 	SDL_Quit();
 }
 
+void initializeGameObjects() {
+	ball.initialize(
+		100, 15, 20, 20, /* bounding box*/
+		ballTexture, -0.5, 0.5);
+}
+
+void handle_input() {
+	SDL_PollEvent(&event);
+	if (event.type == SDL_QUIT) {
+		quit = true;
+	}
+
+}
+
+void update() {
+	ball.update();
+}
+
+void draw() {
+	SDL_RenderClear(gRenderer);
+	ball.draw(gRenderer, (1.0 * lag_ms) / MS_PER_UPDATE);
+	SDL_RenderPresent(gRenderer);
+
+}
+
+
 int main(int argc, char** argv) {
 
 
@@ -151,53 +205,25 @@ int main(int argc, char** argv) {
 	if (!loadResources()) {
 		return 1;
 	}
-
-	SDL_Rect r;
-	r.x = 100;
-	r.y = 100;
-	r.w = 20;
-	r.h = 20;
-	SDL_Surface *blueSurface = IMG_Load("assets/puzzlepack/png/ballBlue.png");
-	SDL_Texture *blueTexture = SDL_CreateTextureFromSurface(gRenderer, blueSurface);
-	SDL_Surface* greySurface = IMG_Load("assets/puzzlepack/png/ballGrey.png");
-	SDL_Texture *greyTexture = SDL_CreateTextureFromSurface(gRenderer, greySurface);
-
-	RectSprite ballBlue = RectSprite(r, blueTexture, 1.0, 1.0);
-	RectSprite ballGrey = RectSprite(r, greyTexture, 0.3, -1.0);
-
+	initializeGameObjects();
 
 
 	// Game loop
-	SDL_Event event;
-	bool quit = false;
-
-	Uint32 current_state_ms = SDL_GetTicks();
-	Uint32 lag_ms = 0;
+	current_state_ms = SDL_GetTicks();
 
 	while (!quit) {
 
-		SDL_PollEvent(&event);
-		if (event.type == SDL_QUIT) {
-			quit = true;
-		}
-	
+		handle_input();
+
 		lag_ms += SDL_GetTicks() - current_state_ms;
 		current_state_ms = SDL_GetTicks();
 
-		while (
-			lag_ms >= MS_PER_UPDATE
-		) {
-			ballBlue.update();
-			ballGrey.update();
+		while (lag_ms >= MS_PER_UPDATE) {
+			update();
 			lag_ms -= MS_PER_UPDATE;
 		}
 
-
-		SDL_RenderClear(gRenderer);
-		ballBlue.draw(gRenderer, (1.0 * lag_ms)/MS_PER_UPDATE);
-		ballGrey.draw(gRenderer, (1.0 * lag_ms)/MS_PER_UPDATE);
-		SDL_RenderPresent(gRenderer);
-
+		draw();
 	}
 
 	close();
