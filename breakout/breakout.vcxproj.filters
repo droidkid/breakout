@@ -21,12 +21,18 @@
     <ClCompile Include="ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="paddle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="game_constants.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="paddle.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

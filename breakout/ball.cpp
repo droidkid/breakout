@@ -46,8 +46,8 @@ void Ball::update() {
 	if (y <= 0 && yVel < 0) {
 		yVel = -yVel;
 	}
-	if (y + h >= SCREEN_HEIGHT && yVel > 0) {
-		yVel = -yVel;
+	if (y >= SCREEN_HEIGHT && yVel > 0) {
+		y = 0;
 
 	}
 

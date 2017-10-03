@@ -7,6 +7,7 @@
 
 #include "game_constants.h"
 #include "ball.h"
+#include "paddle.h"
 
 using namespace GameConstants;
 
@@ -22,12 +23,15 @@ SDL_Renderer *gRenderer = NULL;
 // Resources
 SDL_Texture *greenBrickTexture;
 SDL_Texture *ballTexture;
+SDL_Texture *paddleTexture;
 TTF_Font *gFont = NULL;
 
 // GameObjects
-const int numBalls = 60;
+const int numBalls = 10;
 Ball balls[numBalls];
+Paddle paddle;
 
+int mouse_x;
 
 bool initialize() {
 	// Initialize SDL 
@@ -90,6 +94,9 @@ bool loadResources() {
 	greenBrickTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
 	SDL_FreeSurface(surface);
 
+	surface = IMG_Load("assets/puzzlepack/png/paddleRed.png");
+	paddleTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
+	SDL_FreeSurface(surface);
 	return true;
 
 }
@@ -104,9 +111,12 @@ void initializeGameObjects() {
 		double vel = 0.02;
 		int ballSize = rand() % 5 + 20;
 		balls[i].setBallVelocity(vel * (rand() % 30), vel * (rand() % 30));
-		balls[i].setBoundingBox(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, ballSize, ballSize);
+		balls[i].setBoundingBox(rand() % (SCREEN_WIDTH - 300), rand() % (SCREEN_HEIGHT - 300), ballSize, ballSize);
 		balls[i].setTexture(ballTexture);
 	}
+
+	paddle.setBoundingBox(400, 500, 100, 20);
+	paddle.setTexture(paddleTexture);
 }
 
 
@@ -117,6 +127,7 @@ void handle_input() {
 	}
 	if (event.type == SDL_MOUSEMOTION) {
 		printf("x:%d y:%d\n", event.motion.x, event.motion.y);
+		mouse_x = event.motion.x;
 	}
 }
 
@@ -130,13 +141,19 @@ void update() {
 			balls[i].collideCorrect(&balls[j]);
 		}
 	}
+	paddle.update(mouse_x);
+	for (int i = 0; i < numBalls; i++) {
+		paddle.collideCorrect(&balls[i]);
+	}
 }
 
 void draw() {
 	SDL_RenderClear(gRenderer);
+	double interpolation =( 1.0 * lag_ms) / MS_PER_UPDATE;
 	for (int i = 0; i < numBalls; i++) {
 		balls[i].draw(gRenderer, (1.0 * lag_ms) / MS_PER_UPDATE);
 	}
+	paddle.draw(gRenderer, interpolation);
 	SDL_RenderPresent(gRenderer);
 
 }
