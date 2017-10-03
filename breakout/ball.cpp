@@ -1,6 +1,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <math.h>
+#include <algorithm>
+using namespace std;
 
 #include "game_constants.h"
 #include "ball.h"
@@ -50,4 +53,36 @@ void Ball::update() {
 
 	x += xVel * MS_PER_UPDATE;
 	y += yVel * MS_PER_UPDATE;
+}
+
+void Ball::collideCorrect(Ball *b) {
+	// Not optimized at all, just roll with it
+	double cx1 = (x + w / 2.0);
+	double cy1 = (y + h / 2.0);
+	double r1 = sqrt(2) * w/2;
+
+	double cx2 = (b->x + b->w / 2.0);
+	double cy2 = (b->y + b->h / 2.0);
+	double r2 = sqrt(2)  * b->w/2;
+
+	double distance = (cx2 - cx1) * (cx2 - cx1) + (cy2 - cy1) * (cy2 - cy1);
+	double radiusDis = (r1*r1 + r2*r2);
+
+	if (distance <= radiusDis) {
+		swap(xVel, b->xVel);
+		swap(yVel, b->yVel);
+	}
+	while (distance <= radiusDis) {
+		cx1 += xVel * MS_PER_UPDATE;
+		cy1 += yVel * MS_PER_UPDATE;
+		cx2 += b->xVel * MS_PER_UPDATE;
+		cy2 += b->yVel * MS_PER_UPDATE;
+		distance = (cx2 - cx1) * (cx2 - cx1) + (cy2 - cy1) * (cy2 - cy1);
+	}
+
+	x = cx1 - w / 2.0;
+	y = cy1 - h / 2.0;
+	b->x = cx2 - b->w / 2.0;
+	b->y = cy2 - b->h / 2.0;
+
 }

@@ -17,4 +17,5 @@ public:
 	void setTexture(SDL_Texture *texture);
 	void update();
 	void draw(SDL_Renderer *renderer, double interpolation);
+	void collideCorrect(Ball *ball2);
 };

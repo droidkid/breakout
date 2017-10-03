@@ -25,7 +25,7 @@ SDL_Texture *ballTexture;
 TTF_Font *gFont = NULL;
 
 // GameObjects
-const int numBalls = 150;
+const int numBalls = 60;
 Ball balls[numBalls];
 
 
@@ -102,7 +102,7 @@ void close() {
 void initializeGameObjects() {
 	for (int i = 0; i < numBalls; i++) {
 		double vel = 0.02;
-		int ballSize = rand() % 40 + 20;
+		int ballSize = rand() % 5 + 20;
 		balls[i].setBallVelocity(vel * (rand() % 30), vel * (rand() % 30));
 		balls[i].setBoundingBox(rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, ballSize, ballSize);
 		balls[i].setTexture(ballTexture);
@@ -115,11 +115,20 @@ void handle_input() {
 	if (event.type == SDL_QUIT) {
 		quit = true;
 	}
+	if (event.type == SDL_MOUSEMOTION) {
+		printf("x:%d y:%d\n", event.motion.x, event.motion.y);
+	}
 }
 
 void update() {
 	for (int i = 0; i < numBalls; i++) {
 		balls[i].update();
+	}
+	for (int i = 0; i < numBalls; i++) {
+		for (int j = 0; j < numBalls; j++) {
+			if (i == j) continue;
+			balls[i].collideCorrect(&balls[j]);
+		}
 	}
 }
 
