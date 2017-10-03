@@ -23,11 +23,12 @@ SDL_Renderer *gRenderer = NULL;
 // Resources
 SDL_Texture *greenBrickTexture;
 SDL_Texture *ballTexture;
+SDL_Texture *blueBallTexture;
 SDL_Texture *paddleTexture;
 TTF_Font *gFont = NULL;
 
 // GameObjects
-const int numBalls = 10;
+const int numBalls = 20;
 Ball balls[numBalls];
 Paddle paddle;
 
@@ -62,7 +63,8 @@ bool initialize() {
 		Develop for WIDTH*HEIGHT, SDL will handle the scaling to full screen.
 	*/
 	// Create Window and Renderer.
-	SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN, &gWindow, &gRenderer);
+	SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_FULLSCREEN_DESKTOP, &gWindow, &gRenderer);
+	SDL_RenderSetLogicalSize(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	if (gWindow == NULL) {
 		SDL_Log("Failed to create Window: %s\n", SDL_GetError());
@@ -86,8 +88,12 @@ bool loadResources() {
 	}
 
 	// TODO(chesetti): Error handling, Remove hardcoding.
-	SDL_Surface *surface = IMG_Load("assets/puzzlepack/png/ballBlue.png");
+	SDL_Surface *surface = IMG_Load("assets/puzzlepack/png/ballGrey.png");
 	ballTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
+	SDL_FreeSurface(surface);
+
+	surface = IMG_Load("assets/puzzlepack/png/ballBlue.png");
+	blueBallTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
 	SDL_FreeSurface(surface);
 
 	surface = IMG_Load("assets/puzzlepack/png/element_green_rectangle.png");
@@ -114,6 +120,7 @@ void initializeGameObjects() {
 		balls[i].setBoundingBox(rand() % (SCREEN_WIDTH - 300), rand() % (SCREEN_HEIGHT - 300), ballSize, ballSize);
 		balls[i].setTexture(ballTexture);
 	}
+	balls[0].setTexture(blueBallTexture);
 
 	paddle.setBoundingBox(400, 500, 100, 20);
 	paddle.setTexture(paddleTexture);

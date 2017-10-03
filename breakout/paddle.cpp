@@ -32,8 +32,16 @@ void Paddle::draw(SDL_Renderer *renderer, double interpolation) {
 
 void Paddle::update(int mouse_x) {
 
-	x = max(0, mouse_x);
-	x = min(SCREEN_WIDTH - (int)w, mouse_x);
+	if (mouse_x < 0) {
+		x = 0;
+	}
+	else if (mouse_x > SCREEN_WIDTH - w) {
+		x = SCREEN_WIDTH - w;
+	}
+	else {
+		x = mouse_x;
+	}
+
 
 }
 
