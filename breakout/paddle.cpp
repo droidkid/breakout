@@ -7,6 +7,7 @@ using namespace std;
 
 #include "game_constants.h"
 #include "paddle.h"
+#include "geometry.h"
 
 using namespace GameConstants;
 
@@ -30,7 +31,9 @@ void Paddle::draw(SDL_Renderer *renderer, double interpolation) {
 	SDL_RenderCopy(renderer, texture, NULL, &boundingBox);
 }
 
-void Paddle::update(int mouse_x) {
+void Paddle::update(int mouse_x, int mouse_y) {
+
+	y = mouse_y;
 
 	if (mouse_x < 0) {
 		x = 0;
@@ -45,27 +48,31 @@ void Paddle::update(int mouse_x) {
 
 }
 
+int cou = 0;
 void Paddle::collideCorrect(Ball *b) {
-	// Not optimized at all, just roll with it
-	double cx = (b->x + b->w / 2.0);
-	double cy = (b->y + b->h / 2.0);
-	double r = sqrt(2) * b->w/2;
 
-	if (cx < x || cx > x + w) {
-		return;
+	int code = rect_intersect((b->getBoundingBox()), &boundingBox);
+
+	bool swap_y = true;
+	bool swap_x = false;
+
+	if (code == 12 || code == 3 || code == 0) {
+		swap_x = false;
+	}
+	if (code == 6 || code == 9 || code == 0) {
+		swap_y = false;
 	}
 
-	if (b->y + b->h > y && b->y + b->h < y + h && cy < y ) {
-		b->yVel = -b->yVel;
-		b->y = y - b->h;
-		return;
+	if (swap_y) {
+		b->yVel = -(b->yVel);
+	}
+	if (swap_x) {
+		b->xVel = -(b->xVel);
 	}
 
-	if (b->y < y + h && cy > y) {
-		b->yVel = -b->yVel;
-		b->y = y + h;
-		return;
+	while (code != 0) {
+		b->update();
+		code = rect_intersect((b->getBoundingBox()), &boundingBox);
 	}
-
 
 }

@@ -26,6 +26,14 @@ void Ball::setBoundingBox(double x, double y, double w, double h) {
 	this->h = h;
 }
 
+SDL_Rect* Ball::getBoundingBox() {
+	boundingBox.x = (int)(x);
+	boundingBox.y = (int)(y);
+	boundingBox.w = (int)(w);
+	boundingBox.h = (int)(h);
+	return &boundingBox;
+}
+
 void Ball::draw(SDL_Renderer *renderer, double interpolation) {
 	boundingBox.x = (int)(x + xVel * interpolation);
 	boundingBox.y = (int)(y + yVel * interpolation);

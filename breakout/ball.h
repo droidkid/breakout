@@ -5,13 +5,13 @@
 #include <SDL_ttf.h>
 
 class Ball {
-	SDL_Rect boundingBox;
 	SDL_Texture *texture;
-
+	SDL_Rect boundingBox;
 
 public:
 	double x, y, w, h;
 	double xVel, yVel;
+	SDL_Rect* getBoundingBox();
 	void setBoundingBox(double x, double y, double w, double h);
 	void setBallVelocity(double xVel, double yVel);
 	void setTexture(SDL_Texture *texture);

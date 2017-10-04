@@ -28,11 +28,12 @@ SDL_Texture *paddleTexture;
 TTF_Font *gFont = NULL;
 
 // GameObjects
-const int numBalls = 20;
+const int numBalls = 5;
 Ball balls[numBalls];
 Paddle paddle;
 
 int mouse_x;
+int mouse_y;
 
 bool initialize() {
 	// Initialize SDL 
@@ -63,8 +64,11 @@ bool initialize() {
 		Develop for WIDTH*HEIGHT, SDL will handle the scaling to full screen.
 	*/
 	// Create Window and Renderer.
-	SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_FULLSCREEN_DESKTOP, &gWindow, &gRenderer);
+	SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN, &gWindow, &gRenderer);
 	SDL_RenderSetLogicalSize(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	SDL_ShowCursor(SDL_DISABLE);
+
 
 	if (gWindow == NULL) {
 		SDL_Log("Failed to create Window: %s\n", SDL_GetError());
@@ -100,7 +104,7 @@ bool loadResources() {
 	greenBrickTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("assets/puzzlepack/png/paddleRed.png");
+	surface = IMG_Load("assets/puzzlepack/png/element_red_rectangle.png");
 	paddleTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
 	SDL_FreeSurface(surface);
 	return true;
@@ -116,13 +120,13 @@ void initializeGameObjects() {
 	for (int i = 0; i < numBalls; i++) {
 		double vel = 0.02;
 		int ballSize = rand() % 5 + 20;
-		balls[i].setBallVelocity(vel * (rand() % 30), vel * (rand() % 30));
+		balls[i].setBallVelocity(vel * (rand() % 10), vel * (rand() % 10));
 		balls[i].setBoundingBox(rand() % (SCREEN_WIDTH - 300), rand() % (SCREEN_HEIGHT - 300), ballSize, ballSize);
 		balls[i].setTexture(ballTexture);
 	}
 	balls[0].setTexture(blueBallTexture);
 
-	paddle.setBoundingBox(400, 500, 100, 20);
+	paddle.setBoundingBox(400, 500, 50, 50);
 	paddle.setTexture(paddleTexture);
 }
 
@@ -133,8 +137,8 @@ void handle_input() {
 		quit = true;
 	}
 	if (event.type == SDL_MOUSEMOTION) {
-		printf("x:%d y:%d\n", event.motion.x, event.motion.y);
 		mouse_x = event.motion.x;
+		mouse_y = event.motion.y;
 	}
 }
 
@@ -148,7 +152,7 @@ void update() {
 			balls[i].collideCorrect(&balls[j]);
 		}
 	}
-	paddle.update(mouse_x);
+	paddle.update(mouse_x, mouse_y);
 	for (int i = 0; i < numBalls; i++) {
 		paddle.collideCorrect(&balls[i]);
 	}

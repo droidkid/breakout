@@ -15,7 +15,7 @@ class Paddle {
 public:
 	void setBoundingBox(double x, double y, double w, double h);
 	void setTexture(SDL_Texture *texture);
-	void update(int mouse_x);
+	void update(int mouse_x, int mouse_y);
 	void draw(SDL_Renderer *renderer, double interpolation);
 	void collideCorrect(Ball *ball2);
 };
