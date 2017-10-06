@@ -11,6 +11,7 @@ class Paddle {
 
 	double x, y, w, h;
 	double xVel, yVel;
+	bool in_zone = false;
 
 public:
 	void setBoundingBox(double x, double y, double w, double h);

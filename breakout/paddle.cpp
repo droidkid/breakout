@@ -20,6 +20,10 @@ void Paddle::setBoundingBox(double x, double y, double w, double h) {
 	this->y = y;
 	this->w = w;
 	this->h = h;
+	boundingBox.x = (int)(x);
+	boundingBox.y = (int)(y);
+	boundingBox.w = (int)(w);
+	boundingBox.h = (int)(h);
 }
 
 void Paddle::draw(SDL_Renderer *renderer, double interpolation) {
@@ -33,7 +37,7 @@ void Paddle::draw(SDL_Renderer *renderer, double interpolation) {
 
 void Paddle::update(int mouse_x, int mouse_y) {
 
-	y = mouse_y;
+	//y = mouse_y;
 
 	if (mouse_x < 0) {
 		x = 0;
@@ -51,28 +55,61 @@ void Paddle::update(int mouse_x, int mouse_y) {
 int cou = 0;
 void Paddle::collideCorrect(Ball *b) {
 
+	SDL_Rect *ball = b->getBoundingBox();
+	SDL_Rect *box = &boundingBox;
+
 	int code = rect_intersect((b->getBoundingBox()), &boundingBox);
 
-	bool swap_y = true;
-	bool swap_x = false;
+	int dir = 0;
 
-	if (code == 12 || code == 3 || code == 0) {
-		swap_x = false;
-	}
-	if (code == 6 || code == 9 || code == 0) {
-		swap_y = false;
-	}
+	if (code != 0) {
+		int pull = to_pull_up(ball, box);
+		if (pull > to_pull_down(ball, box)) {
+			pull = to_pull_down(ball, box);
+			dir = 1;
+		}
+		if (pull > to_pull_left(ball, box)) {
+			pull = to_pull_left(ball, box);
+			dir = 2;
+		}
+		if (pull > to_pull_right(ball, box)) {
+			pull = to_pull_right(ball, box);
+			dir = 3;
+		}
 
-	if (swap_y) {
-		b->yVel = -(b->yVel);
-	}
-	if (swap_x) {
-		b->xVel = -(b->xVel);
-	}
-
-	while (code != 0) {
-		b->update();
-		code = rect_intersect((b->getBoundingBox()), &boundingBox);
+		if (dir == 0) {
+			printf("pull up\n");
+			if (b->yVel > 0) {
+				b->yVel = -(b->yVel);
+			}
+			if (b->y > y - b->h) {
+				b->y = y - b->h;
+			}
+		}
+		if (dir == 1) {
+			if (b->yVel < 0) {
+				b->yVel = -(b->yVel);
+			}
+			if (b->y < y + h) {
+				b->y = y + h;
+			}
+		}
+		if (dir == 2) {
+			if (b->xVel > 0) {
+				b->xVel = -(b->xVel);
+			}
+			if (b->x > x - b->w) {
+				b->x = (x - b->w);
+			}
+		}
+		if (dir == 3) {
+			if (b->xVel < 0) {
+				b->xVel = -(b->xVel);
+			}
+			if (b->x < x + w) {
+				b->x = x + w;
+			}
+		}
 	}
 
 }
