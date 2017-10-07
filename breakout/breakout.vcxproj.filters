@@ -27,6 +27,9 @@
     <ClCompile Include="geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDLComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h">
@@ -40,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="geometry.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

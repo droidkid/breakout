@@ -8,6 +8,7 @@
 #include "game_constants.h"
 #include "ball.h"
 #include "paddle.h"
+#include "SDLComponent.h"
 
 using namespace GameConstants;
 
@@ -17,7 +18,6 @@ Uint32 lag_ms = 0;
 bool quit = false;
 
 
-SDL_Window *gWindow = NULL;
 SDL_Renderer *gRenderer = NULL;
 
 // Resources
@@ -36,52 +36,6 @@ Paddle paddles[numPaddles];
 int mouse_x;
 int mouse_y;
 
-bool initialize() {
-	// Initialize SDL 
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-		SDL_Log("Unable to initialize SDL: %s\n", SDL_GetError());
-		return false;
-	}
-
-	// Initialize SDL_image
-	int img_flags = IMG_INIT_PNG;
-	if (IMG_Init(img_flags) != img_flags) {
-		SDL_Log("Unable to initialize SDL_Image: %s", IMG_GetError());
-		return false;
-	}
-
-	// Initialize SDL_ttf
-	if (TTF_Init() != 0) {
-		SDL_Log("Unable to initialize SDL_ttf: %s\n", TTF_GetError());
-		return false;
-	}
-
-	/*
-		Using SDL_WINDOW_SHOWN_MODE, which puts the game in a window. If using a full screen mode
-		like SDL_WINDOW_FULLSCREEN_DESKTOP. You might want to use something like
-
-		SDL_RenderSetLogicalSize(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-		Develop for WIDTH*HEIGHT, SDL will handle the scaling to full screen.
-	*/
-	// Create Window and Renderer.
-	SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN, &gWindow, &gRenderer);
-	SDL_RenderSetLogicalSize(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	SDL_ShowCursor(SDL_DISABLE);
-
-
-	if (gWindow == NULL) {
-		SDL_Log("Failed to create Window: %s\n", SDL_GetError());
-		return false;
-	}
-	if (gRenderer == NULL) {
-		SDL_Log("Failed to create Renderer: %s\n", SDL_GetError());
-		return false;
-	}
-
-	return true;
-}
 
 bool loadResources() {
 	// Load Font.
@@ -112,10 +66,6 @@ bool loadResources() {
 
 }
 
-void close() {
-	SDL_DestroyWindow(gWindow);
-	SDL_Quit();
-}
 
 void initializeGameObjects() {
 	for (int i = 0; i < numBalls; i++) {
@@ -189,12 +139,12 @@ void draw() {
 }
 
 
+SDLComponent component;
+
 int main(int argc, char** argv) {
 
+	gRenderer = component.getRenderer();
 
-	if (!initialize()) {
-		return 1;
-	}
 	if (!loadResources()) {
 		return 1;
 	}
@@ -219,6 +169,5 @@ int main(int argc, char** argv) {
 		draw();
 	}
 
-	close();
 	return 0;
 }

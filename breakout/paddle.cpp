@@ -78,7 +78,6 @@ void Paddle::collideCorrect(Ball *b) {
 		}
 
 		if (dir == 0) {
-			printf("pull up\n");
 			if (b->yVel > 0) {
 				b->yVel = -(b->yVel);
 			}
