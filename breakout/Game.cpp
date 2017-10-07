@@ -4,15 +4,13 @@
 #include "GameLoop.h"
 
 
-SDLComponent *component;
-Resources *resources;
-GameLoop *gameLoop;
 
 
-void Game() {
+Game::Game() {
 	component = new SDLComponent();
 	resources = new Resources(component);
-	gameLoop = new GameLoop();
+	breakout = new Breakout(resources, component);
+	gameLoop = new GameLoop(breakout);
 }
 
 void Game::run() {
