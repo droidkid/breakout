@@ -6,6 +6,7 @@
 
 #include "SDLComponent.h"
 #include "Resources.h"
+#include "Game.h"
 
 using namespace GameConstants;
 
@@ -102,32 +103,9 @@ void draw() {
 
 }
 
-
+Game game;
 
 int main(int argc, char** argv) {
-
-	gRenderer = component.getRenderer();
-
-	initializeGameObjects();
-
-
-	// Game loop
-	current_state_ms = SDL_GetTicks();
-
-	while (!quit) {
-
-		handle_input();
-
-		lag_ms += SDL_GetTicks() - current_state_ms;
-		current_state_ms = SDL_GetTicks();
-
-		while (lag_ms >= MS_PER_UPDATE) {
-			update();
-			lag_ms -= MS_PER_UPDATE;
-		}
-
-		draw();
-	}
-
+	game.run();
 	return 0;
 }
