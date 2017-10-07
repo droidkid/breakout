@@ -123,6 +123,7 @@
     <ClCompile Include="geometry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="paddle.cpp" />
+    <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SDLComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +131,7 @@
     <ClInclude Include="game_constants.h" />
     <ClInclude Include="geometry.h" />
     <ClInclude Include="paddle.h" />
+    <ClInclude Include="Resources.h" />
     <ClInclude Include="SDLComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,14 +1,11 @@
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-
 #include <stdlib.h>
-#include <stdio.h>
 
 #include "game_constants.h"
 #include "ball.h"
 #include "paddle.h"
+
 #include "SDLComponent.h"
+#include "Resources.h"
 
 using namespace GameConstants;
 
@@ -20,12 +17,7 @@ bool quit = false;
 
 SDL_Renderer *gRenderer = NULL;
 
-// Resources
-SDL_Texture *greenBrickTexture;
-SDL_Texture *ballTexture;
-SDL_Texture *blueBallTexture;
-SDL_Texture *paddleTexture;
-TTF_Font *gFont = NULL;
+
 
 // GameObjects
 const int numBalls = 50;
@@ -33,39 +25,11 @@ const int numPaddles = 20;
 Ball balls[numBalls];
 Paddle paddles[numPaddles];
 
+SDLComponent component;
+Resources resources(&component);
+
 int mouse_x;
 int mouse_y;
-
-
-bool loadResources() {
-	// Load Font.
-	// TODO(chesetti): Remove Hardcoding
-	gFont = TTF_OpenFont("assets/fonts/kenpixel_high.ttf", FONT_SIZE_PT);
-	if (gFont == NULL) {
-		SDL_Log("Failed to load text font: %s\n", TTF_GetError());
-		return false;
-	}
-
-	// TODO(chesetti): Error handling, Remove hardcoding.
-	SDL_Surface *surface = IMG_Load("assets/puzzlepack/png/ballGrey.png");
-	ballTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
-	SDL_FreeSurface(surface);
-
-	surface = IMG_Load("assets/puzzlepack/png/ballBlue.png");
-	blueBallTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
-	SDL_FreeSurface(surface);
-
-	surface = IMG_Load("assets/puzzlepack/png/element_green_rectangle.png");
-	greenBrickTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
-	SDL_FreeSurface(surface);
-
-	surface = IMG_Load("assets/puzzlepack/png/element_red_rectangle.png");
-	paddleTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
-	SDL_FreeSurface(surface);
-	return true;
-
-}
-
 
 void initializeGameObjects() {
 	for (int i = 0; i < numBalls; i++) {
@@ -73,7 +37,7 @@ void initializeGameObjects() {
 		int ballSize = 15;
 		balls[i].setBallVelocity(vel * (rand() % 10), vel * (rand() % 10));
 		balls[i].setBoundingBox(rand() % (SCREEN_WIDTH - 300), rand() % (SCREEN_HEIGHT - 300), ballSize, ballSize);
-		balls[i].setTexture(ballTexture);
+		balls[i].setTexture(resources.blueBallTexture);
 	}
 	int row = 1;
 	int col = 0;
@@ -84,13 +48,13 @@ void initializeGameObjects() {
 			row = 0;
 			col++;
 		}
-		paddles[i].setTexture(greenBrickTexture);
+		paddles[i].setTexture(resources.greenBrickTexture);
 	}
 
-	balls[0].setTexture(blueBallTexture);
+	balls[0].setTexture(resources.blueBallTexture);
 
 	paddles[0].setBoundingBox(400, 500, 100, 50);
-	paddles[0].setTexture(paddleTexture);
+	paddles[0].setTexture(resources.paddleTexture);
 
 }
 
@@ -139,15 +103,11 @@ void draw() {
 }
 
 
-SDLComponent component;
 
 int main(int argc, char** argv) {
 
 	gRenderer = component.getRenderer();
 
-	if (!loadResources()) {
-		return 1;
-	}
 	initializeGameObjects();
 
 
