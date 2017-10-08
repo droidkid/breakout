@@ -1,9 +1,4 @@
-#include "Game.h"
-
-/*
-void update() {
-}
-*/
+#include "game.h"
 
 
 Game game;

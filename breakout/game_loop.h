@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Breakout.h"
+#include "breakout.h"
 
 class GameLoop
 {

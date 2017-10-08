@@ -1,8 +1,8 @@
 #include <SDL.h>
 
-#include "GameLoop.h"
+#include "game_loop.h"
 #include "game_constants.h"
-#include "Breakout.h"
+#include "breakout.h"
 
 using namespace GameConstants;
 

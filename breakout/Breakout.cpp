@@ -1,7 +1,7 @@
-#include "Breakout.h"
+#include "breakout.h"
 #include "game_constants.h"
-#include "SDLComponent.h"
-#include "Resources.h"
+#include "sdl_component.h"
+#include "resources.h"
 #include <stdlib.h>
 #include <stdio.h>
 

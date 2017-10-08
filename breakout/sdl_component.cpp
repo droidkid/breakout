@@ -1,4 +1,4 @@
-#include "SDLComponent.h"
+#include "sdl_component.h"
 
 #include "game_constants.h"
 using namespace GameConstants;

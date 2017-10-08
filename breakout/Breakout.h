@@ -3,8 +3,8 @@
 #include "game_constants.h"
 #include "ball.h"
 #include "paddle.h"
-#include "Resources.h"
-#include "SDLComponent.h"
+#include "resources.h"
+#include "sdl_component.h"
 
 class Breakout
 {

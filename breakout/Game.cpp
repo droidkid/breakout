@@ -1,7 +1,7 @@
-#include "Game.h"
-#include "SDLComponent.h"
-#include "Resources.h"
-#include "GameLoop.h"
+#include "game.h"
+#include "sdl_component.h"
+#include "resources.h"
+#include "game_loop.h"
 
 
 

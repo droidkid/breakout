@@ -1,9 +1,9 @@
 #pragma once
 
-#include "SDLComponent.h"
-#include "Resources.h"
-#include "GameLoop.h"
-#include "Game.h"
+#include "sdl_component.h"
+#include "resources.h"
+#include "game_loop.h"
+#include "game.h"
 
 class Game
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "SDLComponent.h"
+#include "sdl_component.h"
 
 class Resources
 {

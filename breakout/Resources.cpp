@@ -1,4 +1,4 @@
-#include "Resources.h"
+#include "resources.h"
 #include "game_constants.h"
 
 
