@@ -10,7 +10,8 @@ class Breakout
 {
 	SDL_Renderer *renderer;
 	Ball balls[GameConstants::NUM_BALLS];
-	Paddle bricks[GameConstants::NUM_BRICKS + 1];
+	Paddle bricks[GameConstants::NUM_BRICKS];
+	Paddle paddle;
 
 public:
 	Breakout(Resources *resources, SDLComponent *sdlComponent);

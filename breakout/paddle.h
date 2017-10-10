@@ -12,8 +12,11 @@ class Paddle {
 	double x, y, w, h;
 	double xVel, yVel;
 	bool in_zone = false;
+	bool exists = true;
+	bool is_paddle = false;
 
 public:
+	void setAsPaddle(bool val);
 	void setBoundingBox(double x, double y, double w, double h);
 	void setTexture(SDL_Texture *texture);
 	void update(int mouse_x, int mouse_y);

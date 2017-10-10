@@ -126,6 +126,7 @@
     <ClCompile Include="geometry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="paddle.cpp" />
+    <ClCompile Include="physics_component.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="sdl_component.cpp" />
   </ItemGroup>
@@ -137,6 +138,7 @@
     <ClInclude Include="game_constants.h" />
     <ClInclude Include="geometry.h" />
     <ClInclude Include="paddle.h" />
+    <ClInclude Include="physics_component.h" />
     <ClInclude Include="resources.h" />
     <ClInclude Include="sdl_component.h" />
   </ItemGroup>

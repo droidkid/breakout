@@ -4,6 +4,8 @@
 #include "game_constants.h"
 #include "breakout.h"
 
+#include <stdio.h>
+
 using namespace GameConstants;
 
 GameLoop::GameLoop(Breakout *breakout)

@@ -4,18 +4,17 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
+#include "physics_component.h"
+
 class Ball {
 	SDL_Texture *texture;
 	SDL_Rect boundingBox;
+	PhysicsComponent physicsComponent;
 
 public:
-	double x, y, w, h;
-	double xVel, yVel;
-	SDL_Rect* getBoundingBox();
-	void setBoundingBox(double x, double y, double w, double h);
-	void setBallVelocity(double xVel, double yVel);
-	void setTexture(SDL_Texture *texture);
+	PhysicsComponent* getPhysicsComponent();
 	void update();
+	// Graphics Methods
+	void setTexture(SDL_Texture *texture);
 	void draw(SDL_Renderer *renderer, double interpolation);
-	void collideCorrect(Ball *ball2);
 };

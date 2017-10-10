@@ -15,6 +15,10 @@ void Paddle::setTexture(SDL_Texture *texture) {
 	this->texture = texture;
 }
 
+void Paddle::setAsPaddle(bool val) {
+	this->is_paddle = val;
+}
+
 void Paddle::setBoundingBox(double x, double y, double w, double h) {
 	this->x = x;
 	this->y = y;
@@ -27,6 +31,9 @@ void Paddle::setBoundingBox(double x, double y, double w, double h) {
 }
 
 void Paddle::draw(SDL_Renderer *renderer, double interpolation) {
+	if (!exists) {
+		return;
+	}
 	boundingBox.x = (int)(x + xVel * interpolation);
 	boundingBox.y = (int)(y + yVel * interpolation);
 	boundingBox.w = (int)(w);
@@ -55,60 +62,11 @@ void Paddle::update(int mouse_x, int mouse_y) {
 int cou = 0;
 void Paddle::collideCorrect(Ball *b) {
 
+	if (!exists) {
+		return;
+	}
+
 	SDL_Rect *ball = b->getBoundingBox();
 	SDL_Rect *box = &boundingBox;
-
-	int code = rect_intersect((b->getBoundingBox()), &boundingBox);
-
-	int dir = 0;
-
-	if (code != 0) {
-		int pull = to_pull_up(ball, box);
-		if (pull > to_pull_down(ball, box)) {
-			pull = to_pull_down(ball, box);
-			dir = 1;
-		}
-		if (pull > to_pull_left(ball, box)) {
-			pull = to_pull_left(ball, box);
-			dir = 2;
-		}
-		if (pull > to_pull_right(ball, box)) {
-			pull = to_pull_right(ball, box);
-			dir = 3;
-		}
-
-		if (dir == 0) {
-			if (b->yVel > 0) {
-				b->yVel = -(b->yVel);
-			}
-			if (b->y > y - b->h) {
-				b->y = y - b->h;
-			}
-		}
-		if (dir == 1) {
-			if (b->yVel < 0) {
-				b->yVel = -(b->yVel);
-			}
-			if (b->y < y + h) {
-				b->y = y + h;
-			}
-		}
-		if (dir == 2) {
-			if (b->xVel > 0) {
-				b->xVel = -(b->xVel);
-			}
-			if (b->x > x - b->w) {
-				b->x = (x - b->w);
-			}
-		}
-		if (dir == 3) {
-			if (b->xVel < 0) {
-				b->xVel = -(b->xVel);
-			}
-			if (b->x < x + w) {
-				b->x = x + w;
-			}
-		}
-	}
 
 }
