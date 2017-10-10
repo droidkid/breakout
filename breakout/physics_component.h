@@ -1,6 +1,7 @@
 #pragma once
 class PhysicsComponent
 {
+protected:
 	double x, y, w, h;
 	double xVel, yVel;
 public:
@@ -23,7 +24,7 @@ public:
 	double getXVelocity();
 	double getYVelocity();
 
-	void update();
+	virtual void update();
 
 	~PhysicsComponent();
 };

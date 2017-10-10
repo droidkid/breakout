@@ -66,7 +66,4 @@ void Paddle::collideCorrect(Ball *b) {
 		return;
 	}
 
-	SDL_Rect *ball = b->getBoundingBox();
-	SDL_Rect *box = &boundingBox;
-
 }

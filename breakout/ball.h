@@ -9,11 +9,12 @@
 class Ball {
 	SDL_Texture *texture;
 	SDL_Rect boundingBox;
-	PhysicsComponent physicsComponent;
+	PhysicsComponent *physicsComponent;
 
 public:
-	PhysicsComponent* getPhysicsComponent();
+	Ball();
 	void update();
+	PhysicsComponent* getPhysics();
 	// Graphics Methods
 	void setTexture(SDL_Texture *texture);
 	void draw(SDL_Renderer *renderer, double interpolation);

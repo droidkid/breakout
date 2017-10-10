@@ -1,6 +1,5 @@
 #include "physics_component.h"
-
-
+#include "game_constants.h"
 
 PhysicsComponent::PhysicsComponent()
 {
@@ -93,7 +92,9 @@ double PhysicsComponent::getYVelocity()
 	return yVel;
 }
 
-void update() {
+void PhysicsComponent::update() {
+	x = x + xVel * GameConstants::UPDATES_PER_SECOND;
+	y = y + yVel * GameConstants::UPDATES_PER_SECOND;
 }
 
 

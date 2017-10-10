@@ -14,8 +14,8 @@ Breakout::Breakout(Resources *resources, SDLComponent *component)
 	renderer = component->getRenderer();
 
 	for (int i = 0; i < NUM_BALLS; i++) {
-		balls[i].setBallVelocity(BALL_VELOCITY, BALL_VELOCITY);
-		balls[i].setBoundingBox(500, 400, BALL_SIZE, BALL_SIZE);
+		balls[i].getPhysics()->setVelocity(BALL_VELOCITY, BALL_VELOCITY);
+		balls[i].getPhysics()->setXYAndSize(500, 400, BALL_SIZE, BALL_SIZE);
 		balls[i].setTexture(resources->greyBallTexture);
 	}
 
