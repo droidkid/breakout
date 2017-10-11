@@ -11,13 +11,16 @@ using namespace GameConstants;
 
 Breakout::Breakout(Resources *resources, SDLComponent *component)
 {
+	// TODO(chesetti): This construction logic needs to be better organized.
 	renderer = component->getRenderer();
 
 	for (int i = 0; i < NUM_BALLS; i++) {
 		balls[i].getPhysics()->setVelocity(BALL_VELOCITY, BALL_VELOCITY);
 		balls[i].getPhysics()->setXYAndSize(500, 400, BALL_SIZE, BALL_SIZE);
-		balls[i].setTexture(resources->greyBallTexture);
+		balls[i].getGraphics()->setTexture(resources->greyBallTexture);
+		balls[i].getGraphics()->setRenderer(renderer);
 	}
+	balls[0].getGraphics()->setTexture(resources->blueBallTexture);
 
 	int brick_cnt = 0;
 	int color_cnt = 0;
@@ -33,7 +36,6 @@ Breakout::Breakout(Resources *resources, SDLComponent *component)
 			}
 	}
 
-	balls[0].setTexture(resources->blueBallTexture);
 	paddle.setBoundingBox(400, 500, 100, 20);
 	paddle.setTexture(resources->paddleTexture);
 	paddle.setAsPaddle(true);
@@ -55,7 +57,7 @@ void Breakout::update(int mouse_x, int mouse_y) {
 void Breakout::draw() {
 	SDL_RenderClear(renderer);
 	for (int i = 0; i < NUM_BALLS; i++) {
-		balls[i].draw(renderer, 0.0);
+		balls[i].draw(0.0);
 	}
 	for (int i = 0; i < NUM_BRICKS; i++) {
 		bricks[i].draw(renderer, 0.0);

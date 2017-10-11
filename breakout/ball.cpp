@@ -34,33 +34,5 @@ class BallPhysics : public PhysicsComponent {
 
 Ball::Ball() {
 	this->physicsComponent = new BallPhysics();
-}
-
-void Ball::setTexture(SDL_Texture *texture) {
-	this->texture = texture;
-}
-
-PhysicsComponent* Ball::getPhysics() {
-	return (this->physicsComponent);
-}
-
-
-void Ball::draw(SDL_Renderer *renderer, double interpolation) {
-	double x = physicsComponent->getX();
-	double y = physicsComponent->getY();
-	double w = physicsComponent->getWidth();
-	double h = physicsComponent->getHeight();
-	double xVel = physicsComponent->getXVelocity();
-	double yVel = physicsComponent->getYVelocity();
-
-	boundingBox.x = (int)(x + xVel * interpolation);
-	boundingBox.y = (int)(y + yVel * interpolation);
-	boundingBox.w = (int)(w);
-	boundingBox.h = (int)(h);
-
-	SDL_RenderCopy(renderer, texture, NULL, &boundingBox);
-}
-
-void Ball::update() {
-	physicsComponent->update();
+	this->graphicsComponent = new GraphicsComponent(physicsComponent);
 }
