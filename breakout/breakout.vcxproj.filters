@@ -51,6 +51,12 @@
     <ClCompile Include="game_object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="brick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="collision_engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -87,6 +93,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game_object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="brick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="collision_engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

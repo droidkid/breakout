@@ -3,15 +3,18 @@
 #include "game_constants.h"
 #include "ball.h"
 #include "paddle.h"
+#include "brick.h"
 #include "resources.h"
 #include "sdl_component.h"
+#include "collision_engine.h"
 
 class Breakout
 {
 	SDL_Renderer *renderer;
-	Ball balls[GameConstants::NUM_BALLS];
-	Paddle bricks[GameConstants::NUM_BRICKS];
+	Ball ball;
+	Brick bricks[GameConstants::NUM_BRICKS];
 	Paddle paddle;
+	CollisionEngine collisionEngine;
 
 public:
 	Breakout(Resources *resources, SDLComponent *sdlComponent);

@@ -59,7 +59,6 @@ void Paddle::update(int mouse_x, int mouse_y) {
 
 }
 
-int cou = 0;
 void Paddle::collideCorrect(Ball *b) {
 
 	if (!exists) {

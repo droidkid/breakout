@@ -1,9 +1,12 @@
 #pragma once
+
+#include "geometry.h"
+
 class PhysicsComponent
 {
 protected:
-	double x, y, w, h;
-	double xVel, yVel;
+	Rect box;
+	Vec2d vel;
 public:
 	PhysicsComponent();
 	void setX(double x);
@@ -23,6 +26,9 @@ public:
 	double getHeight();
 	double getXVelocity();
 	double getYVelocity();
+
+	Rect getRect();
+	Vec2d getVelocity();
 
 	virtual void update();
 

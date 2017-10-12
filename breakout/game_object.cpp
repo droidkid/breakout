@@ -1,8 +1,15 @@
 #include "game_object.h"
 
 
-
 GameObject::GameObject()
+{
+	// Responsibility of sub objects to specify these.
+	this->physicsComponent = NULL;
+	this->graphicsComponent = NULL;
+}
+
+GameObject::GameObject(PhysicsComponent *physicsComponent, GraphicsComponent *graphicsComponent) :
+	physicsComponent(physicsComponent), graphicsComponent(graphicsComponent)
 {
 }
 

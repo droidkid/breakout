@@ -9,30 +9,30 @@ using namespace std;
 #include "ball.h"
 #include "physics_component.h"
 
+#include <stdio.h>
+
 using namespace GameConstants;
 
 class BallPhysics : public PhysicsComponent {
 	void update() {
-		if (x <= 0 && xVel < 0) {
-			xVel = -xVel;
+		if (box.x <= 0 && vel.x < 0) {
+			vel.x = -vel.x;
 		}
-		if (x + w >= SCREEN_WIDTH && xVel > 0) {
-			xVel = -xVel;
+		if (box.x + box.w >= SCREEN_WIDTH && vel.x > 0) {
+			vel.x = -vel.x;
 		}
-		if (y <= 0 && yVel < 0) {
-			yVel = -yVel;
+		if (box.y <= 0 && vel.y < 0) {
+			vel.y = -vel.y;
 		}
-		if (y >= SCREEN_HEIGHT && yVel > 0) {
-			y = 0;
+		if (box.y >= SCREEN_HEIGHT && vel.y > 0) {
+			box.y = 0;
+		}
 
-		}
-
-		x += xVel * MS_PER_UPDATE;
-		y += yVel * MS_PER_UPDATE;
+		PhysicsComponent::update();
 	}
 };
 
-Ball::Ball() {
+Ball::Ball()  {
 	this->physicsComponent = new BallPhysics();
 	this->graphicsComponent = new GraphicsComponent(physicsComponent);
 }

@@ -11,8 +11,8 @@ namespace GameConstants {
 	const int BALL_SIZE = 10;
 
 	const int BRICK_ROWS = 7;
-	const int BRICK_COLS = 50;
+	const int BRICK_COLS = 25;
 	const int BRICK_HEIGHT = 15;
-	const int BRICK_WIDTH = 15;
+	const int BRICK_WIDTH = 30;
 	const int NUM_BRICKS = BRICK_COLS * BRICK_ROWS;
 }

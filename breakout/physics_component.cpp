@@ -3,17 +3,16 @@
 
 PhysicsComponent::PhysicsComponent()
 {
-	// TODO(chesetti): Add default values here
 }
 
 void PhysicsComponent::setX(double x)
 {
-	this->x = x;
+	this->box.x = x;
 }
 
 void PhysicsComponent::setY(double y)
 {
-	this->y = y;
+	this->box.y = y;
 }
 
 void PhysicsComponent::setXY(double x, double y)
@@ -24,12 +23,12 @@ void PhysicsComponent::setXY(double x, double y)
 
 void PhysicsComponent::setWidth(double w)
 {
-	this->w = w;
+	this->box.w = w;
 }
 
 void PhysicsComponent::setHeight(double h)
 {
-	this->h = h;
+	this->box.h = h;
 }
 
 void PhysicsComponent::setSize(double w, double h)
@@ -48,12 +47,12 @@ void PhysicsComponent::setXYAndSize(double x, double y, double w, double h)
 
 void PhysicsComponent::setXVel(double xVel)
 {
-	this->xVel = xVel;
+	this->vel.x = xVel;
 }
 
 void PhysicsComponent::setYVel(double yVel)
 {
-	this->yVel = yVel;
+	this->vel.y = yVel;
 }
 
 void PhysicsComponent::setVelocity(double xVel, double yVel)
@@ -64,37 +63,45 @@ void PhysicsComponent::setVelocity(double xVel, double yVel)
 
 double PhysicsComponent::getX()
 {
-	return x;
+	return box.x;
 }
 
 double PhysicsComponent::getY()
 {
-	return y;
+	return box.y;
 }
 
 double PhysicsComponent::getWidth()
 {
-	return w;
+	return box.w;
 }
 
 double PhysicsComponent::getHeight()
 {
-	return h;
+	return box.h;
 }
 
 double PhysicsComponent::getXVelocity()
 {
-	return xVel;
+	return vel.x;
 }
 
 double PhysicsComponent::getYVelocity()
 {
-	return yVel;
+	return vel.y;
+}
+
+Rect PhysicsComponent::getRect() {
+	return box;
+}
+
+Vec2d PhysicsComponent::getVelocity() {
+	return vel;
 }
 
 void PhysicsComponent::update() {
-	x = x + xVel * GameConstants::UPDATES_PER_SECOND;
-	y = y + yVel * GameConstants::UPDATES_PER_SECOND;
+	box.x = box.x + vel.x * GameConstants::MS_PER_UPDATE;
+	box.y = box.y + vel.y * GameConstants::MS_PER_UPDATE;
 }
 
 
