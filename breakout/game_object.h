@@ -17,6 +17,6 @@ public:
 	GraphicsComponent *getGraphics();
 	// If adding new components, update the update() and draw() methods too
 	void update();
-	void draw(double interpolation);
+	virtual void draw(double interpolation);
 };
 
