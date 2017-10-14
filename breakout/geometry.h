@@ -20,3 +20,5 @@ public:
 };
 
 int isRectIntersect(Rect r1, Rect r2);
+
+Vec2d getDisplacementVector(Rect r1, Rect r2);

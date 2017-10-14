@@ -1,6 +1,7 @@
 #include "collision_engine.h"
 #include "geometry.h"
 #include <algorithm>
+#include <math.h>
 #include <stdio.h>
 
 using namespace std;
@@ -33,51 +34,31 @@ int CollisionEngine::detectCollision(PhysicsComponent *physics1, PhysicsComponen
 
 void CollisionEngine::update() {
 
-		int cnt = 0;
 	for (int i = 0; i < numBricks; i++) {
 		if (bricks[i].isExists() && detectCollision(ball->getPhysics(), bricks[i].getPhysics())) {
 			Rect r1 = ball->getPhysics()->getRect();
 			Rect r2 = bricks[i].getPhysics()->getRect();
-
-			cnt++;
+			Vec2d disp = getDisplacementVector(r1, r2);
 
 			double yVel = ball->getPhysics()->getYVelocity();
 			double xVel = ball->getPhysics()->getXVelocity();
 
-			double y1Dist = r1.y - r2.y + r2.h;
-			double y2Dist = r1.y + r1.h - r2.y;
-
-			double x1Dist = r1.x - (r2.x + r2.w);
-			double x2Dist = r1.x + r1.w - r2.x;
-
-			double yDisp = (abs(y1Dist) < abs(y2Dist)) ? y1Dist : y2Dist;
-			double xDisp = (abs(x1Dist) < abs(x2Dist)) ? x1Dist : x2Dist;
-
-			printf("%0.8f %0.8f\n", xDisp, yDisp);
-
-			if (abs(yDisp) < abs(xDisp)) {
-				if (yVel * yDisp >= 0) {
+			if (fabs(disp.y) < fabs(disp.x)) {
+				if (yVel * disp.y >= 0) {
 					ball->getPhysics()->setYVel(-yVel);
-					printf("yReflected!\n");
 				}
-				printf("yCorrected!\n");
-				ball->getPhysics()->setY(r1.y - yDisp);
+				ball->getPhysics()->setY(r1.y - disp.y);
 			}
 			else {
-				if (xVel * xDisp >= 0) {
+				if (xVel * disp.x >= 0) {
 					ball->getPhysics()->setXVel(-xVel);
-					printf("xReflected!\n");
 				}
-				printf("xCorrected! %f %f\n" , ball->getPhysics()->getXVelocity(), xDisp);
-				ball->getPhysics()->setX(r1.x - xDisp);
+				ball->getPhysics()->setX(r1.x - disp.x);
 			}
 			bricks[i].makeDisappear();
 			break;
 		}
 		// check paddle ball collision
-	}
-	if (cnt > 0) {
-		printf("%d\n", cnt);
 	}
 
 }
