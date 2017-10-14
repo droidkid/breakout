@@ -60,6 +60,8 @@ int CollisionEngine::handleBallBrickCollision(PhysicsComponent *ballPhysics, Phy
 			}
 			ball->getPhysics()->setX(r1.x - disp.x);
 		}
+
+
 		return 1;
 	}
 
@@ -92,10 +94,17 @@ int CollisionEngine::handleBallPaddleCollision(PhysicsComponent *ballPhysics, Ph
 			ball->getPhysics()->setX(r1.x - disp.x);
 		}
 
-		// Finetune this. Look to add stuff like taking paddle's momentum into consideration.
-		double xAddVel = 0.01;
-		double xAddDisp = (r1.x + r1.w/2 - (r2.x + r2.w/2)) / r2.w/2;
-		ball->getPhysics()->setXVel( ball->getPhysics()->getXVelocity() + xAddVel * xAddDisp);
+		double ball_cx = r1.x + (r1.w / 2);
+		double paddle_cx = r2.x + (r2.w / 2);
+
+		double offset = (ball_cx - paddle_cx)/ (r2.w/2);
+
+		if (ball_cx < paddle_cx) {
+			ball->getPhysics()->setXVel(-0.0005 + offset * 0.4);
+		}
+		else {
+			ball->getPhysics()->setXVel(0.0005 + offset * 0.4);
+		}
 
 		return 1;
 	}

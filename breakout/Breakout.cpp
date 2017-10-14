@@ -22,7 +22,7 @@ Breakout::Breakout(Resources *resources, SDLComponent *component)
 	int color_cnt = 0;
 	for (int i = 0; i < BRICK_ROWS; i++) {
 		for (int j = 0; j < BRICK_COLS; j++) {
-			bricks[brick_cnt].getPhysics()->setXYAndSize(j * BRICK_WIDTH + 30, i * BRICK_HEIGHT + 100, BRICK_WIDTH, BRICK_HEIGHT);
+			bricks[brick_cnt].getPhysics()->setXYAndSize(j * BRICK_WIDTH , i * BRICK_HEIGHT + 100, BRICK_WIDTH, BRICK_HEIGHT);
 			bricks[brick_cnt].getGraphics()->setTexture(resources->brickTextures[color_cnt]);
 			bricks[brick_cnt].getGraphics()->setRenderer(renderer);
 			brick_cnt++;
