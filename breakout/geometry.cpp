@@ -15,7 +15,7 @@ int isRectIntersect(Rect r1, Rect r2) {
 
 Vec2d getDisplacementVector(Rect r1, Rect r2) {
 
-	double y1Dist = r1.y - r2.y + r2.h;
+	double y1Dist = r1.y - r2.y - r2.h;
 	double y2Dist = r1.y + r1.h - r2.y;
 
 	double x1Dist = r1.x - (r2.x + r2.w);

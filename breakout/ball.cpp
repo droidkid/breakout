@@ -25,7 +25,7 @@ class BallPhysics : public PhysicsComponent {
 			vel.y = -vel.y;
 		}
 		if (box.y >= SCREEN_HEIGHT && vel.y > 0) {
-			box.y = 0;
+			vel.y = -vel.y;
 		}
 
 		PhysicsComponent::update();

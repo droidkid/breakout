@@ -9,13 +9,17 @@ class CollisionEngine
 {
 	Ball *ball;
 	Brick *bricks;
+	Paddle *paddle;
 	int numBricks;
+
+	int handleBallBrickCollision(PhysicsComponent *p1, PhysicsComponent *p2);
+	int handleBallPaddleCollision(PhysicsComponent *p1, PhysicsComponent *p2);
 public:
 	CollisionEngine();
 	void setBall(Ball *ball);
 	void setBricks(Brick *brick, int numBricks);
+	void setPaddle(Paddle *paddle);
 	void update();
-	int detectCollision(PhysicsComponent *physics1, PhysicsComponent *physics2);
 	~CollisionEngine();
 };
 

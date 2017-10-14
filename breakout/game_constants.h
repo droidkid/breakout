@@ -7,7 +7,7 @@ namespace GameConstants {
 	const int MS_PER_UPDATE = 1000 / UPDATES_PER_SECOND;
 
 	const int NUM_BALLS = 1;
-	const double BALL_VELOCITY = 0.1;
+	const double BALL_VELOCITY = 0.25;
 	const int BALL_SIZE = 10;
 
 	const int BRICK_ROWS = 7;

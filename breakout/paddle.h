@@ -4,22 +4,17 @@
 #include <SDL_ttf.h>
 
 #include "ball.h"
+#include "game_object.h"
+#include "physics_component.h"
 
-class Paddle {
-	SDL_Rect boundingBox;
-	SDL_Texture *texture;
-
-	double x, y, w, h;
-	double xVel, yVel;
-	bool in_zone = false;
-	bool exists = true;
-	bool is_paddle = false;
-
+class PaddlePhysics : public PhysicsComponent {
 public:
-	void setAsPaddle(bool val);
-	void setBoundingBox(double x, double y, double w, double h);
-	void setTexture(SDL_Texture *texture);
 	void update(int mouse_x, int mouse_y);
-	void draw(SDL_Renderer *renderer, double interpolation);
-	void collideCorrect(Ball *ball2);
+};
+
+class Paddle : public GameObject {
+	PaddlePhysics *paddlePhysics;
+public:
+	Paddle();
+	void update(int mouse_x, int mouse_y);
 };

@@ -33,12 +33,13 @@ Breakout::Breakout(Resources *resources, SDLComponent *component)
 		}
 	}
 
-	paddle.setBoundingBox(400, 500, 100, 20);
-	paddle.setTexture(resources->paddleTexture);
-	paddle.setAsPaddle(true);
+	paddle.getPhysics()->setXYAndSize(400, 500, 100, 20);
+	paddle.getGraphics()->setTexture(resources->paddleTexture);
+	paddle.getGraphics()->setRenderer(renderer);
 
 	collisionEngine.setBall(&ball);
 	collisionEngine.setBricks(bricks, NUM_BRICKS);
+	collisionEngine.setPaddle(&paddle);
 
 }
 
@@ -57,7 +58,7 @@ void Breakout::draw() {
 	for (int i = 0; i < NUM_BRICKS; i++) {
 		bricks[i].draw(0.0);
 	}
-	paddle.draw(renderer, 0.0);
+	paddle.draw(0.0);
 	SDL_RenderPresent(renderer);
 }
 

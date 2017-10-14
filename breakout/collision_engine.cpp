@@ -21,48 +21,87 @@ void CollisionEngine::setBricks(Brick * bricks, int numBricks)
 	this->bricks = bricks;
 }
 
-int CollisionEngine::detectCollision(PhysicsComponent *physics1, PhysicsComponent *physics2)
-{
-	Rect r1 = physics1->getRect();
-	Rect r2 = physics2->getRect();
-
-	if (isRectIntersect(r1, r2)) {
-		return 1;
-	}
-	return 0;
+void CollisionEngine::setPaddle(Paddle *paddle) {
+	this->paddle = paddle;
 }
 
 void CollisionEngine::update() {
 
 	for (int i = 0; i < numBricks; i++) {
-		if (bricks[i].isExists() && detectCollision(ball->getPhysics(), bricks[i].getPhysics())) {
-			Rect r1 = ball->getPhysics()->getRect();
-			Rect r2 = bricks[i].getPhysics()->getRect();
-			Vec2d disp = getDisplacementVector(r1, r2);
-
-			double yVel = ball->getPhysics()->getYVelocity();
-			double xVel = ball->getPhysics()->getXVelocity();
-
-			if (fabs(disp.y) < fabs(disp.x)) {
-				if (yVel * disp.y >= 0) {
-					ball->getPhysics()->setYVel(-yVel);
-				}
-				ball->getPhysics()->setY(r1.y - disp.y);
-			}
-			else {
-				if (xVel * disp.x >= 0) {
-					ball->getPhysics()->setXVel(-xVel);
-				}
-				ball->getPhysics()->setX(r1.x - disp.x);
-			}
+		if (bricks[i].isExists() && handleBallBrickCollision(ball->getPhysics(), bricks[i].getPhysics())) {
 			bricks[i].makeDisappear();
 			break;
 		}
-		// check paddle ball collision
+		handleBallPaddleCollision(ball->getPhysics(), paddle->getPhysics());
 	}
 
 }
 
+
+int CollisionEngine::handleBallBrickCollision(PhysicsComponent *ballPhysics, PhysicsComponent *brickPhysics) {
+	Rect r1 = ballPhysics->getRect();
+	Rect r2 = brickPhysics->getRect();
+
+	if (isRectIntersect(r1, r2)) {
+		Vec2d disp = getDisplacementVector(r1, r2);
+
+		double yVel = ball->getPhysics()->getYVelocity();
+		double xVel = ball->getPhysics()->getXVelocity();
+
+		if (fabs(disp.y) < fabs(disp.x)) {
+			if (yVel * disp.y >= 0) {
+				ball->getPhysics()->setYVel(-yVel);
+			}
+			ball->getPhysics()->setY(r1.y - disp.y);
+		}
+		else {
+			if (xVel * disp.x >= 0) {
+				ball->getPhysics()->setXVel(-xVel);
+			}
+			ball->getPhysics()->setX(r1.x - disp.x);
+		}
+		return 1;
+	}
+
+	return 0;
+}
+
+int CollisionEngine::handleBallPaddleCollision(PhysicsComponent *ballPhysics, PhysicsComponent *brickPhysics) {
+	Rect r1 = ballPhysics->getRect();
+	Rect r2 = brickPhysics->getRect();
+
+	if (isRectIntersect(r1, r2)) {
+		Vec2d disp = getDisplacementVector(r1, r2);
+
+		double yVel = ball->getPhysics()->getYVelocity();
+		double xVel = ball->getPhysics()->getXVelocity();
+
+		if (fabs(disp.y) < fabs(disp.x)) {
+			if (yVel * disp.y >= 0) {
+				ball->getPhysics()->setYVel(-yVel);
+			}
+			ball->getPhysics()->setY(r1.y - disp.y);
+		}
+		else {
+			if (xVel * disp.x >= 0) {
+				ball->getPhysics()->setXVel(-xVel);
+			}
+			if (r1.y < r2.y + r2.h/4) {
+				ball->getPhysics()->setYVel(-yVel);
+			}
+			ball->getPhysics()->setX(r1.x - disp.x);
+		}
+
+		// Finetune this. Look to add stuff like taking paddle's momentum into consideration.
+		double xAddVel = 0.01;
+		double xAddDisp = (r1.x + r1.w/2 - (r2.x + r2.w/2)) / r2.w/2;
+		ball->getPhysics()->setXVel( ball->getPhysics()->getXVelocity() + xAddVel * xAddDisp);
+
+		return 1;
+	}
+
+	return 0;
+}
 
 CollisionEngine::~CollisionEngine()
 {
