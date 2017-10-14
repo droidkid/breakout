@@ -78,22 +78,7 @@ int CollisionEngine::handleBallPaddleCollision(PhysicsComponent *ballPhysics, Ph
 		double yVel = ball->getPhysics()->getYVelocity();
 		double xVel = ball->getPhysics()->getXVelocity();
 
-		if (fabs(disp.y) < fabs(disp.x)) {
-			if (yVel * disp.y >= 0) {
-				ball->getPhysics()->setYVel(-yVel);
-			}
-			ball->getPhysics()->setY(r1.y - disp.y);
-		}
-		else {
-			if (xVel * disp.x >= 0) {
-				ball->getPhysics()->setXVel(-xVel);
-			}
-			if (r1.y < r2.y + r2.h/4) {
-				ball->getPhysics()->setYVel(-yVel);
-			}
-			ball->getPhysics()->setX(r1.x - disp.x);
-		}
-
+		// Set X Velocity
 		double ball_cx = r1.x + (r1.w / 2);
 		double paddle_cx = r2.x + (r2.w / 2);
 
@@ -105,6 +90,31 @@ int CollisionEngine::handleBallPaddleCollision(PhysicsComponent *ballPhysics, Ph
 		else {
 			ball->getPhysics()->setXVel(0.0005 + offset * 0.4);
 		}
+
+		xVel = ball->getPhysics()->getXVelocity();
+		double vel = 0.4;
+
+		if (fabs(disp.y) < fabs(disp.x)) {
+			if (yVel * disp.y >= 0) {
+				double temp = max(0.2*0.2, vel*vel - xVel*xVel);
+				ball->getPhysics()->setYVel(-sqrt(temp));
+			}
+			ball->getPhysics()->setY(r1.y - disp.y);
+		}
+		else {
+			if (xVel * disp.x >= 0) {
+				ball->getPhysics()->setXVel(-xVel);
+			}
+			if (r1.y < r2.y + r2.h/4) {
+				ball->getPhysics()->setYVel(-0.3);
+			}
+			else {
+				ball->getPhysics()->setYVel(0.3);
+
+			}
+			ball->getPhysics()->setX(r1.x - disp.x);
+		}
+
 
 		return 1;
 	}
