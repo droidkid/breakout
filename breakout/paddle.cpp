@@ -12,10 +12,7 @@ using namespace std;
 using namespace GameConstants;
 
 void PaddlePhysics::update(int mouse_x, int mouse_y) {
-	if (mouse_y < 0) {
-		setX(0);
-	}
-	else if (mouse_x > SCREEN_WIDTH - getWidth()) {
+	if (mouse_x > SCREEN_WIDTH - getWidth()) {
 		setX(SCREEN_WIDTH - getWidth());
 	}
 	else {

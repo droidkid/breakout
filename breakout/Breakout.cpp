@@ -33,7 +33,7 @@ Breakout::Breakout(Resources *resources, SDLComponent *component)
 		}
 	}
 
-	paddle.getPhysics()->setXYAndSize(400, 500, 100, 20);
+	paddle.getPhysics()->setXYAndSize(400, 500, 110, 20);
 	paddle.getGraphics()->setTexture(resources->paddleTexture);
 	paddle.getGraphics()->setRenderer(renderer);
 
