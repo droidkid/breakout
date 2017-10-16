@@ -97,7 +97,6 @@ int CollisionEngine::handleBallPaddleCollision(PhysicsComponent *ballPhysics, Ph
 
 
 			double dist = (ball_cx - paddle_cx) / (r2.w / 2);
-			printf("%lf %lf\n", xVel, dist);
 			ball->getPhysics()->setXVel(dist * 0.65);
 			ball->getPhysics()->setY(r1.y - disp.y);
 		}
