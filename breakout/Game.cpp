@@ -11,11 +11,12 @@ Game::Game() {
 	resources = new Resources(component);
 	breakout = new Breakout(resources, component);
 	gameLoop = new GameLoop(breakout);
+	// TODO(chesetti): Initialize all screens here and pass them to game loop
+	// Probably add some flags based on development mode or normal node.
 }
 
 void Game::run() {
-	// Usually there'd be other stuff here (start, pause etc).
-	// Just starting gameLoop for now.
+	
 	gameLoop->runLoop();
 }
 

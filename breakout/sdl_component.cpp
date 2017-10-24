@@ -4,6 +4,8 @@
 using namespace GameConstants;
 
 
+// TODO(chesetti): Rename to this something like SDL_Utility
+
 SDLComponent::SDLComponent()
 {
 	initLibs();

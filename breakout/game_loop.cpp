@@ -8,6 +8,10 @@
 
 using namespace GameConstants;
 
+// TODO(chesetti): Keep track of a Current 'Screen' and a list of all 'Screens'
+// Only the active screen will be updated in runLoop
+// 'Screen' will have some methods.
+
 GameLoop::GameLoop(Breakout *breakout)
 {
 	this->breakout = breakout;
