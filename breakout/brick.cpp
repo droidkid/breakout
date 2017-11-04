@@ -4,7 +4,7 @@
 
 Brick::Brick() : GameObject()
 {
-	exists = 1;
+	this->exists = 1;
 	this->physicsComponent = new PhysicsComponent();
 	this->graphicsComponent = new GraphicsComponent(physicsComponent);
 }

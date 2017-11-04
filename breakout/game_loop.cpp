@@ -12,10 +12,11 @@ using namespace GameConstants;
 // Only the active screen will be updated in runLoop
 // 'Screen' will have some methods.
 
-GameLoop::GameLoop(Breakout *breakout, EventQueue *events)
+GameLoop::GameLoop(Breakout *breakout, EventQueue *events, TextComponent *textUtility)
 {
 	this->breakout = breakout;
 	this->events = events;
+	this->textUtility = textUtility;
 }
 
 void GameLoop::runLoop() {
@@ -31,7 +32,8 @@ void GameLoop::runLoop() {
 			breakout->update();
 			lag_ms -= MS_PER_UPDATE;
 		}
-		breakout->draw();
+		//breakout->draw();
+		textUtility->drawText("Hello Text!", Vec2d(0, 0));
 		quit_event_received = events->quitGame();
 	}
 }

@@ -143,6 +143,7 @@
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="sdl_component.cpp" />
+    <ClCompile Include="TextComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="resources.h" />
     <ClInclude Include="screen.h" />
     <ClInclude Include="sdl_component.h" />
+    <ClInclude Include="text_component.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
