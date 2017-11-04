@@ -3,14 +3,12 @@
 #include "resources.h"
 #include "game_loop.h"
 
-
-
-
 Game::Game() {
 	component = new SDLComponent();
 	resources = new Resources(component);
-	breakout = new Breakout(resources, component);
-	gameLoop = new GameLoop(breakout);
+	events = new EventQueue();
+	breakout = new Breakout(resources, component, events);
+	gameLoop = new GameLoop(breakout, events);
 	// TODO(chesetti): Initialize all screens here and pass them to game loop
 	// Probably add some flags based on development mode or normal node.
 }

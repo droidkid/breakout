@@ -73,6 +73,9 @@
     <IncludePath>C:\lib\SDL2_ttf-2.0.14\include;C:\lib\SDL2_image-2.0.1\include;C:\lib\SDL2-devel-2.0.5-VC\SDL2-2.0.5\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\lib\SDL2_ttf-2.0.14\lib\x86;C:\lib\SDL2-devel-2.0.5-VC\SDL2-2.0.5\lib\x86;C:\lib\SDL2_image-2.0.1\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\lib\SDL2_ttf-2.0.14\include;C:\lib\SDL2-devel-2.0.5-VC\SDL2-2.0.5\include;C:\lib\SDL2_image-2.0.1\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -91,6 +94,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\lib\SDL2-devel-2.0.5-VC\SDL2-2.0.5\lib\x64;C:\lib\SDL2_ttf-2.0.14\lib\x64;C:\lib\SDL2_image-2.0.1\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -123,6 +131,7 @@
     <ClCompile Include="breakout.cpp" />
     <ClCompile Include="brick.cpp" />
     <ClCompile Include="collision_engine.cpp" />
+    <ClCompile Include="EventQueue.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="game_loop.cpp" />
     <ClCompile Include="game_object.cpp" />
@@ -132,6 +141,7 @@
     <ClCompile Include="paddle.cpp" />
     <ClCompile Include="physics_component.cpp" />
     <ClCompile Include="resources.cpp" />
+    <ClCompile Include="screen.cpp" />
     <ClCompile Include="sdl_component.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +149,7 @@
     <ClInclude Include="breakout.h" />
     <ClInclude Include="brick.h" />
     <ClInclude Include="collision_engine.h" />
+    <ClInclude Include="event_queue.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_loop.h" />
     <ClInclude Include="game_constants.h" />
@@ -148,6 +159,7 @@
     <ClInclude Include="paddle.h" />
     <ClInclude Include="physics_component.h" />
     <ClInclude Include="resources.h" />
+    <ClInclude Include="screen.h" />
     <ClInclude Include="sdl_component.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

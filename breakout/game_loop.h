@@ -1,6 +1,7 @@
 #pragma once
 
 #include "breakout.h"
+#include "event_queue.h"
 
 class GameLoop
 {
@@ -8,14 +9,14 @@ class GameLoop
 	int lag_ms;
 	bool keep_loop_running;
 	Breakout *breakout;
+	EventQueue *events;
 
 	SDL_Event event;
 	int mouse_x;
 	int mouse_y;
 public:
-	GameLoop(Breakout *breakout);
+	GameLoop(Breakout *breakout, EventQueue *events);
 	void runLoop();
-	void pollInput();
 	~GameLoop();
 };
 

@@ -7,11 +7,13 @@
 
 using namespace GameConstants;
 
-Breakout::Breakout(Resources *resources, SDLComponent *component)
+Breakout::Breakout(Resources *resources, SDLComponent *component, EventQueue *events)
 {
-	// TODO(chesetti): This construction logic needs to be better organized.
+	this->events = events;
+
 	renderer = component->getRenderer();
 
+	// TODO(chesetti): This construction logic needs to be better organized.
 	ball.getPhysics()->setVelocity(BALL_VELOCITY, BALL_VELOCITY);
 	ball.getPhysics()->setXYAndSize(500, 400, BALL_SIZE, BALL_SIZE);
 	ball.getGraphics()->setTexture(resources->greyBallTexture);
@@ -43,9 +45,10 @@ Breakout::Breakout(Resources *resources, SDLComponent *component)
 
 }
 
-void Breakout::update(int mouse_x, int mouse_y) {
+void Breakout::update() {
+	Vec2d mouse_pos = events->getMousePos();
 	ball.update();
-	paddle.update(mouse_x, mouse_y);
+	paddle.update(mouse_pos.x, mouse_pos.y);
 	for (int i = 0; i < NUM_BRICKS; i++) {
 		bricks[i].update();
 	}

@@ -12,37 +12,27 @@ using namespace GameConstants;
 // Only the active screen will be updated in runLoop
 // 'Screen' will have some methods.
 
-GameLoop::GameLoop(Breakout *breakout)
+GameLoop::GameLoop(Breakout *breakout, EventQueue *events)
 {
 	this->breakout = breakout;
-}
-
-// TODO(chesetti): This should not be here.
-void GameLoop::pollInput() {
-	SDL_PollEvent(&event);
-	if (event.type == SDL_QUIT) {
-		keep_loop_running = false;
-	}
-	if (event.type == SDL_MOUSEMOTION) {
-		mouse_x = event.motion.x;
-		mouse_y = event.motion.y;
-	}
+	this->events = events;
 }
 
 void GameLoop::runLoop() {
-	keep_loop_running = true;
+	bool quit_event_received = false;
 	current_tick_ms = SDL_GetTicks();
 
-	while (keep_loop_running) {
-		pollInput();
+	while (!quit_event_received) {
+		events->pollInput();
 		lag_ms += SDL_GetTicks() - current_tick_ms;
 		current_tick_ms = SDL_GetTicks();
 
 		while (lag_ms >= MS_PER_UPDATE) {
-			breakout->update(mouse_x, mouse_y);
+			breakout->update();
 			lag_ms -= MS_PER_UPDATE;
 		}
 		breakout->draw();
+		quit_event_received = events->quitGame();
 	}
 }
 
