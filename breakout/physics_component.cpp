@@ -1,93 +1,78 @@
 #include "physics_component.h"
 #include "game_constants.h"
 
-PhysicsComponent::PhysicsComponent()
-{
+// Holds and updates object position, velocity.
+
+PhysicsComponent::PhysicsComponent() {
 }
 
-void PhysicsComponent::setX(double x)
-{
+void PhysicsComponent::setX(double x) {
 	this->box.x = x;
 }
 
-void PhysicsComponent::setY(double y)
-{
+void PhysicsComponent::setY(double y) {
 	this->box.y = y;
 }
 
-void PhysicsComponent::setXY(double x, double y)
-{
+void PhysicsComponent::setXY(double x, double y) {
 	setX(x);
 	setY(y);
 }
 
-void PhysicsComponent::setWidth(double w)
-{
+void PhysicsComponent::setWidth(double w) {
 	this->box.w = w;
 }
 
-void PhysicsComponent::setHeight(double h)
-{
+void PhysicsComponent::setHeight(double h) {
 	this->box.h = h;
 }
 
-void PhysicsComponent::setSize(double w, double h)
-{
+void PhysicsComponent::setSize(double w, double h) {
 	setWidth(w);
 	setHeight(h);
 }
 
-void PhysicsComponent::setXYAndSize(double x, double y, double w, double h)
-{
+void PhysicsComponent::setXYAndSize(double x, double y, double w, double h) {
 	setX(x);
 	setY(y);
 	setWidth(w);
 	setHeight(h);
 }
 
-void PhysicsComponent::setXVel(double xVel)
-{
+void PhysicsComponent::setXVel(double xVel) {
 	this->vel.x = xVel;
 }
 
-void PhysicsComponent::setYVel(double yVel)
-{
+void PhysicsComponent::setYVel(double yVel) {
 	this->vel.y = yVel;
 }
 
-void PhysicsComponent::setVelocity(double xVel, double yVel)
-{
+void PhysicsComponent::setVelocity(double xVel, double yVel) {
 	setXVel(xVel);
 	setYVel(yVel);
 }
 
-double PhysicsComponent::getX()
-{
+double PhysicsComponent::getX() {
 	return box.x;
 }
 
-double PhysicsComponent::getY()
-{
+double PhysicsComponent::getY() {
 	return box.y;
 }
 
-double PhysicsComponent::getWidth()
-{
+double PhysicsComponent::getWidth() {
 	return box.w;
 }
 
-double PhysicsComponent::getHeight()
-{
+double PhysicsComponent::getHeight() {
 	return box.h;
 }
 
-double PhysicsComponent::getXVelocity()
-{
+double PhysicsComponent::getXVelocity() {
 	return vel.x;
 }
 
-double PhysicsComponent::getYVelocity()
-{
+double PhysicsComponent::getYVelocity() {
 	return vel.y;
 }
 
@@ -105,6 +90,5 @@ void PhysicsComponent::update() {
 }
 
 
-PhysicsComponent::~PhysicsComponent()
-{
+PhysicsComponent::~PhysicsComponent() {
 }

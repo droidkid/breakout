@@ -32,7 +32,7 @@ class BallPhysics : public PhysicsComponent {
 	}
 };
 
-Ball::Ball()  {
+Ball::Ball() {
 	this->physicsComponent = new BallPhysics();
 	this->graphicsComponent = new GraphicsComponent(physicsComponent);
 }

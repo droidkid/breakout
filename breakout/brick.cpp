@@ -2,8 +2,7 @@
 
 
 
-Brick::Brick() : GameObject()
-{
+Brick::Brick() : GameObject() {
 	this->exists = 1;
 	this->physicsComponent = new PhysicsComponent();
 	this->graphicsComponent = new GraphicsComponent(physicsComponent);
@@ -23,6 +22,5 @@ void Brick::draw(double interpolation) {
 	}
 }
 
-Brick::~Brick()
-{
+Brick::~Brick() {
 }

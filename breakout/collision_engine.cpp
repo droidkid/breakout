@@ -6,17 +6,14 @@
 
 using namespace std;
 
-CollisionEngine::CollisionEngine()
-{
+CollisionEngine::CollisionEngine() {
 }
 
-void CollisionEngine::setBall(Ball * ball)
-{
+void CollisionEngine::setBall(Ball * ball) {
 	this->ball = ball;
 }
 
-void CollisionEngine::setBricks(Brick * bricks, int numBricks)
-{
+void CollisionEngine::setBricks(Brick * bricks, int numBricks) {
 	this->numBricks = numBricks;
 	this->bricks = bricks;
 }
@@ -84,7 +81,7 @@ int CollisionEngine::handleBallPaddleCollision(PhysicsComponent *ballPhysics, Ph
 		double paddle_cx = r2.x + (r2.w / 2);
 		double paddle_cy = r2.y + (r2.h / 2);
 
-		double offset = (ball_cx - paddle_cx)/ (r2.w/2);
+		double offset = (ball_cx - paddle_cx) / (r2.w / 2);
 
 		if (fabs(disp.y) < fabs(disp.x)) {
 			if (ball_cy > paddle_cy) {
@@ -119,6 +116,5 @@ int CollisionEngine::handleBallPaddleCollision(PhysicsComponent *ballPhysics, Ph
 	return 0;
 }
 
-CollisionEngine::~CollisionEngine()
-{
+CollisionEngine::~CollisionEngine() {
 }

@@ -3,14 +3,13 @@
 #include <SDL.h>
 
 /*
-	Ideally this should be a class that runs in a separate thread.
+	Ideally this should be a class that runs in a separate thread (There are lots of good reasons for this).
 	For now, the game_loop calls pollInput every cycle, and this class
 	keeps track of last known event. Mouse Position and Quit events are
 	also kept track of.
 */
 
-EventQueue::EventQueue()
-{
+EventQueue::EventQueue() {
 	quit_event_received = false;
 }
 
@@ -34,6 +33,5 @@ bool EventQueue::quitGame() {
 }
 
 
-EventQueue::~EventQueue()
-{
+EventQueue::~EventQueue() {
 }

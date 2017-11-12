@@ -1,5 +1,7 @@
 #include "graphics_component.h"
 
+// Holds texture and does drawing of sprite.
+
 GraphicsComponent::GraphicsComponent(PhysicsComponent *physics) {
 	this->physicsComponent = physics;
 }

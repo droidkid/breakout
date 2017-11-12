@@ -3,6 +3,8 @@
 #include "resources.h"
 #include "game_loop.h"
 
+// Initialize all objects required and start the game loop.
+
 Game::Game() {
 	component = new SDLComponent();
 	resources = new Resources(component);
@@ -15,10 +17,8 @@ Game::Game() {
 }
 
 void Game::run() {
-	
 	gameLoop->runLoop();
 }
 
-Game::~Game()
-{
+Game::~Game() {
 }

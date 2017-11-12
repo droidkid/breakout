@@ -2,9 +2,9 @@
 #include "game_constants.h"
 
 
+// Class to keep initialize and retrieve all resources (Textures, Fonts, Audio etc). 
 
-Resources::Resources(SDLComponent *component)
-{
+Resources::Resources(SDLComponent *component) {
 	component->loadPNGintoTexture("assets/puzzlepack/png/element_green_rectangle.png", &brickTextures[GREEN]);
 	component->loadPNGintoTexture("assets/puzzlepack/png/element_red_rectangle.png", &brickTextures[RED]);
 	component->loadPNGintoTexture("assets/puzzlepack/png/element_yellow_rectangle.png", &brickTextures[YELLOW]);
@@ -20,7 +20,6 @@ Resources::Resources(SDLComponent *component)
 }
 
 
-Resources::~Resources()
-{
+Resources::~Resources() {
 	//TODO(chesetti): Free all resources here.
 }

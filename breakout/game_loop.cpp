@@ -8,12 +8,13 @@
 
 using namespace GameConstants;
 
+// Keeps updating the game in a loop. This is done by calling update, draw on the active 'Screen'.
+
 // TODO(chesetti): Keep track of a Current 'Screen' and a list of all 'Screens'
 // Only the active screen will be updated in runLoop
 // 'Screen' will have some methods.
 
-GameLoop::GameLoop(Breakout *breakout, EventQueue *events, TextComponent *textUtility)
-{
+GameLoop::GameLoop(Breakout *breakout, EventQueue *events, TextComponent *textUtility) {
 	this->breakout = breakout;
 	this->events = events;
 	this->textUtility = textUtility;
@@ -39,6 +40,5 @@ void GameLoop::runLoop() {
 }
 
 
-GameLoop::~GameLoop()
-{
+GameLoop::~GameLoop() {
 }

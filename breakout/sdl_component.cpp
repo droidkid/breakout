@@ -6,8 +6,9 @@ using namespace GameConstants;
 
 // TODO(chesetti): Rename to this something like SDL_Utility
 
-SDLComponent::SDLComponent()
-{
+// Initializes SDL libraries.
+
+SDLComponent::SDLComponent() {
 	initLibs();
 	initVideo();
 }
@@ -54,6 +55,7 @@ void SDLComponent::initVideo() {
 	}
 }
 
+// Move these to resources.
 void SDLComponent::loadPNGintoTexture(char *fpath, SDL_Texture **texture) {
 	SDL_Surface *surface = IMG_Load(fpath);
 	*texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -73,8 +75,7 @@ SDL_Renderer* SDLComponent::getRenderer() {
 	return renderer;
 }
 
-SDLComponent::~SDLComponent()
-{
+SDLComponent::~SDLComponent() {
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
