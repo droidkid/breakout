@@ -1,8 +1,7 @@
 #pragma once
 #include "game_object.h"
 
-class Brick : public GameObject
-{
+class Brick : public GameObject {
 	int exists;
 public:
 	Brick();

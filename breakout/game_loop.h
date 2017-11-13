@@ -4,8 +4,7 @@
 #include "event_queue.h"
 #include "text_component.h"
 
-class GameLoop
-{
+class GameLoop {
 	int current_tick_ms;
 	int lag_ms;
 	bool keep_loop_running;

@@ -3,5 +3,5 @@
 class Screen {
 public:
 	virtual void update() {};
-	virtual void draw() {} ;
+	virtual void draw() {};
 };

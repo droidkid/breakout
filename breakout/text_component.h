@@ -6,8 +6,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-class TextComponent
-{
+class TextComponent {
 	SDL_Color textColor;
 	TTF_Font *font;
 	SDL_Renderer *renderer;

@@ -2,8 +2,7 @@
 
 #include "geometry.h"
 
-class EventQueue
-{
+class EventQueue {
 	SDL_Event event;
 	bool quit_event_received;
 	Vec2d mouse_pos;

@@ -2,8 +2,7 @@
 
 #include "geometry.h"
 
-class PhysicsComponent
-{
+class PhysicsComponent {
 protected:
 	Rect box;
 	Vec2d vel;
@@ -19,7 +18,7 @@ public:
 	void setXVel(double xVel);
 	void setYVel(double yVel);
 	void setVelocity(double xVel, double yVel);
-	
+
 	double getX();
 	double getY();
 	double getWidth();

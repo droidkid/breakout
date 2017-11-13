@@ -5,8 +5,7 @@
 #include "paddle.h"
 #include "ball.h"
 
-class CollisionEngine
-{
+class CollisionEngine {
 	Ball *ball;
 	Brick *bricks;
 	Paddle *paddle;

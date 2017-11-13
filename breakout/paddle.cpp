@@ -3,12 +3,12 @@
 #include <SDL_ttf.h>
 #include <math.h>
 #include <algorithm>
-using namespace std;
 
 #include "game_constants.h"
 #include "paddle.h"
 #include "geometry.h"
 
+using namespace std;
 using namespace GameConstants;
 
 void PaddlePhysics::update(int mouse_x, int mouse_y) {

@@ -11,8 +11,7 @@ enum BrickColors {
 	NUM_COLORS
 };
 
-class Resources
-{
+class Resources {
 
 public:
 	SDL_Texture *brickTextures[NUM_COLORS];

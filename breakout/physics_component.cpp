@@ -1,8 +1,6 @@
 #include "physics_component.h"
 #include "game_constants.h"
 
-// Holds and updates object position, velocity.
-
 PhysicsComponent::PhysicsComponent() {
 }
 

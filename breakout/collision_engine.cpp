@@ -108,11 +108,8 @@ int CollisionEngine::handleBallPaddleCollision(PhysicsComponent *ballPhysics, Ph
 			}
 			ball->getPhysics()->setX(r1.x - disp.x);
 		}
-
-
 		return 1;
 	}
-
 	return 0;
 }
 

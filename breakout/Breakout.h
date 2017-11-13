@@ -5,13 +5,12 @@
 #include "paddle.h"
 #include "brick.h"
 #include "resources.h"
-#include "sdl_component.h"
+#include "sdl_helper.h"
 #include "collision_engine.h"
 #include "screen.h"
 #include "event_queue.h"
 
-class Breakout : public Screen
-{
+class Breakout : public Screen {
 	SDL_Renderer *renderer;
 	Ball ball;
 	Brick bricks[GameConstants::NUM_BRICKS];
@@ -20,7 +19,7 @@ class Breakout : public Screen
 	EventQueue *events;
 
 public:
-	Breakout(Resources *resources, SDLComponent *sdlComponent, EventQueue *events);
+	Breakout(Resources *resources, SDLHelper *sdlComponent, EventQueue *events);
 	void update();
 	void draw();
 	~Breakout();

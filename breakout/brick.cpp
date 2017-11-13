@@ -1,7 +1,5 @@
 #include "brick.h"
 
-
-
 Brick::Brick() : GameObject() {
 	this->exists = 1;
 	this->physicsComponent = new PhysicsComponent();
