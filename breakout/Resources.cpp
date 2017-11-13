@@ -4,19 +4,34 @@
 
 // Class to keep initialize and retrieve all resources (Textures, Fonts, Audio etc). 
 
-Resources::Resources(SDLComponent *component) {
-	component->loadPNGintoTexture("assets/puzzlepack/png/element_green_rectangle.png", &brickTextures[GREEN]);
-	component->loadPNGintoTexture("assets/puzzlepack/png/element_red_rectangle.png", &brickTextures[RED]);
-	component->loadPNGintoTexture("assets/puzzlepack/png/element_yellow_rectangle.png", &brickTextures[YELLOW]);
-	component->loadPNGintoTexture("assets/puzzlepack/png/element_purple_rectangle.png", &brickTextures[PURPLE]);
-	component->loadPNGintoTexture("assets/puzzlepack/png/element_blue_rectangle.png", &brickTextures[BLUE]);
-	component->loadPNGintoTexture("assets/puzzlepack/png/element_grey_rectangle.png", &brickTextures[GREY]);
+Resources::Resources(SDLHelper *component) {
+	SDL_Renderer *renderer = component->getRenderer();
+	loadPNGintoTexture("assets/puzzlepack/png/element_green_rectangle.png", &brickTextures[GREEN], renderer);
+	loadPNGintoTexture("assets/puzzlepack/png/element_red_rectangle.png", &brickTextures[RED], renderer);
+	loadPNGintoTexture("assets/puzzlepack/png/element_yellow_rectangle.png", &brickTextures[YELLOW], renderer);
+	loadPNGintoTexture("assets/puzzlepack/png/element_purple_rectangle.png", &brickTextures[PURPLE], renderer);
+	loadPNGintoTexture("assets/puzzlepack/png/element_blue_rectangle.png", &brickTextures[BLUE], renderer);
+	loadPNGintoTexture("assets/puzzlepack/png/element_grey_rectangle.png", &brickTextures[GREY], renderer);
 
-	component->loadPNGintoTexture("assets/puzzlepack/png/ballGrey.png", &greyBallTexture);
-	component->loadPNGintoTexture("assets/puzzlepack/png/ballBlue.png", &blueBallTexture);
-	component->loadPNGintoTexture("assets/puzzlepack/png/paddleBlu.png", &paddleTexture);
+	loadPNGintoTexture("assets/puzzlepack/png/ballGrey.png", &greyBallTexture, renderer);
+	loadPNGintoTexture("assets/puzzlepack/png/ballBlue.png", &blueBallTexture, renderer);
+	loadPNGintoTexture("assets/puzzlepack/png/paddleBlu.png", &paddleTexture, renderer);
 
-	component->loadTTFfont("assets/fonts/kenpixel_high.ttf", GameConstants::FONT_SIZE_PT, &font);
+	loadTTFfont("assets/fonts/kenpixel_high.ttf", GameConstants::FONT_SIZE_PT, &font);
+}
+
+void Resources::loadPNGintoTexture(char *fpath, SDL_Texture **texture, SDL_Renderer *renderer) {
+	SDL_Surface *surface = IMG_Load(fpath);
+	*texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+}
+
+void Resources::loadTTFfont(char *fpath, int font_size, TTF_Font **font) {
+	*font = TTF_OpenFont(fpath, font_size);
+	if (*font == NULL) {
+		SDL_Log("Failed to load text font: %s\n", TTF_GetError());
+		throw "Failed to load text";
+	}
 }
 
 

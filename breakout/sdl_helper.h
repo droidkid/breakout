@@ -3,7 +3,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-class SDLComponent
+class SDLHelper
 {
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
@@ -12,8 +12,8 @@ class SDLComponent
 	void initLibs();
 
 public:
-	SDLComponent();
-	~SDLComponent();
+	SDLHelper();
+	~SDLHelper();
 	SDL_Renderer* getRenderer();
 	void loadPNGintoTexture(char *filePath, SDL_Texture **texture);
 	void loadTTFfont(char *filePath, int font_size, TTF_Font **font);

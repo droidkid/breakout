@@ -1,4 +1,4 @@
-#include "sdl_component.h"
+#include "sdl_helper.h"
 
 #include "game_constants.h"
 using namespace GameConstants;
@@ -8,12 +8,12 @@ using namespace GameConstants;
 
 // Initializes SDL libraries.
 
-SDLComponent::SDLComponent() {
+SDLHelper::SDLHelper() {
 	initLibs();
 	initVideo();
 }
 
-void SDLComponent::initLibs() {
+void SDLHelper::initLibs() {
 	// Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		SDL_Log("Unable to initialize SDL: %s\n", SDL_GetError());
@@ -35,7 +35,7 @@ void SDLComponent::initLibs() {
 
 }
 
-void SDLComponent::initVideo() {
+void SDLHelper::initVideo() {
 
 	// Create Window and Renderer.
 	SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN, &window, &renderer);
@@ -55,27 +55,11 @@ void SDLComponent::initVideo() {
 	}
 }
 
-// Move these to resources.
-void SDLComponent::loadPNGintoTexture(char *fpath, SDL_Texture **texture) {
-	SDL_Surface *surface = IMG_Load(fpath);
-	*texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
-}
-
-void SDLComponent::loadTTFfont(char *fpath, int font_size, TTF_Font **font) {
-
-	*font = TTF_OpenFont(fpath, font_size);
-	if (*font == NULL) {
-		SDL_Log("Failed to load text font: %s\n", TTF_GetError());
-		throw "Failed to load text";
-	}
-}
-
-SDL_Renderer* SDLComponent::getRenderer() {
+SDL_Renderer* SDLHelper::getRenderer() {
 	return renderer;
 }
 
-SDLComponent::~SDLComponent() {
+SDLHelper::~SDLHelper() {
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }

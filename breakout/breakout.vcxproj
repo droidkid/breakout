@@ -142,7 +142,7 @@
     <ClCompile Include="physics_component.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="screen.cpp" />
-    <ClCompile Include="sdl_component.cpp" />
+    <ClCompile Include="sdl_helper.cpp" />
     <ClCompile Include="TextComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +161,7 @@
     <ClInclude Include="physics_component.h" />
     <ClInclude Include="resources.h" />
     <ClInclude Include="screen.h" />
-    <ClInclude Include="sdl_component.h" />
+    <ClInclude Include="sdl_helper.h" />
     <ClInclude Include="text_component.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

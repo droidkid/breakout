@@ -78,9 +78,6 @@
     <ClCompile Include="resources.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="sdl_component.cpp">
-      <Filter>Source Files\game</Filter>
-    </ClCompile>
     <ClCompile Include="screen.cpp">
       <Filter>Source Files\screens</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="TextComponent.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sdl_helper.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +131,6 @@
     <ClInclude Include="resources.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="sdl_component.h">
-      <Filter>Header Files\game</Filter>
-    </ClInclude>
     <ClInclude Include="screen.h">
       <Filter>Header Files\screens</Filter>
     </ClInclude>
@@ -142,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="text_component.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdl_helper.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

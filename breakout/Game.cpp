@@ -1,12 +1,10 @@
 #include "game.h"
-#include "sdl_component.h"
+#include "sdl_helper.h"
 #include "resources.h"
 #include "game_loop.h"
 
-// Initialize all objects required and start the game loop.
-
 Game::Game() {
-	component = new SDLComponent();
+	component = new SDLHelper();
 	resources = new Resources(component);
 	text = new TextComponent(component, resources);
 	events = new EventQueue();

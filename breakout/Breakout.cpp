@@ -1,6 +1,6 @@
 #include "breakout.h"
 #include "game_constants.h"
-#include "sdl_component.h"
+#include "sdl_helper.h"
 #include "resources.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,7 +9,7 @@ using namespace GameConstants;
 
 // Screen for breakout game.
 
-Breakout::Breakout(Resources *resources, SDLComponent *component, EventQueue *events) {
+Breakout::Breakout(Resources *resources, SDLHelper *component, EventQueue *events) {
 	this->events = events;
 
 	renderer = component->getRenderer();
