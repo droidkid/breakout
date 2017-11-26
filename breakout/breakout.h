@@ -10,8 +10,7 @@
 #include "screen.h"
 #include "event_queue.h"
 
-class Breakout : public Screen
-{
+class Breakout : public Screen {
 	SDL_Renderer *renderer;
 	Ball ball;
 	Brick bricks[GameConstants::NUM_BRICKS];

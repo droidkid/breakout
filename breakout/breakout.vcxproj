@@ -131,7 +131,7 @@
     <ClCompile Include="breakout.cpp" />
     <ClCompile Include="brick.cpp" />
     <ClCompile Include="collision_engine.cpp" />
-    <ClCompile Include="EventQueue.cpp" />
+    <ClCompile Include="event_queue.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="game_loop.cpp" />
     <ClCompile Include="game_object.cpp" />
@@ -143,7 +143,7 @@
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="sdl_helper.cpp" />
-    <ClCompile Include="TextComponent.cpp" />
+    <ClCompile Include="text_component.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h" />
