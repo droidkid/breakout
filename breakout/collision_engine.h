@@ -11,7 +11,7 @@ class CollisionEngine {
 	Paddle *paddle;
 	int numBricks;
 
-	int handleBallBrickCollision(PhysicsComponent *p1, PhysicsComponent *p2);
+	int handleBallBrickCollision(PhysicsComponent *p1, PhysicsComponent *p2); // Dafuq is p1, p2????
 	int handleBallPaddleCollision(PhysicsComponent *p1, PhysicsComponent *p2);
 public:
 	CollisionEngine();

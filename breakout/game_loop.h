@@ -10,9 +10,6 @@ class GameLoop {
 	Breakout *breakout;
 	EventQueue *events;
 
-	SDL_Event event;
-	int mouse_x;
-	int mouse_y;
 public:
 	GameLoop(Breakout *breakout, EventQueue *events);
 	void runLoop();

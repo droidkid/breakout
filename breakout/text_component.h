@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+// DO NOT USE THIS CLASS. JUST A PLACEHOLDER TO FIGURE OUT HOW TO RENDER TEXT.
 class TextComponent {
 	SDL_Color textColor;
 	TTF_Font *font;

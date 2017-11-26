@@ -5,16 +5,21 @@
 #include "game_loop.h"
 #include "game.h"
 #include "event_queue.h"
-#include "text_component.h"
 
 class Game
 {
-	SDLSystem *sdl;
+	// Holder for all assets.
 	Resources *resources;
+
+	// Libraries that have a specific purpose.
+	SDLSystem *sdl;
+
+	// Classes that represent processes that run.
 	GameLoop *gameLoop;
-	Breakout *breakout;
 	EventQueue *events;
-	TextComponent *text;
+
+	// Classes that represent the state of the game.
+	Breakout *breakout;
 public:
 	Game();
 	void run();
