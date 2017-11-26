@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sdl_helper.h"
+#include "sdl_system.h"
 #include "resources.h"
 #include "game_loop.h"
 #include "game.h"
@@ -9,7 +9,7 @@
 
 class Game
 {
-	SDLHelper *component;
+	SDLSystem *sdl;
 	Resources *resources;
 	GameLoop *gameLoop;
 	Breakout *breakout;

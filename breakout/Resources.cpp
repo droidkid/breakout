@@ -4,8 +4,8 @@
 
 // Class to keep initialize and retrieve all resources (Textures, Fonts, Audio etc). 
 
-Resources::Resources(SDLHelper *component) {
-	SDL_Renderer *renderer = component->getRenderer();
+Resources::Resources(SDLSystem *sdl) {
+	SDL_Renderer *renderer = sdl->getRenderer();
 	loadPNGintoTexture("assets/puzzlepack/png/element_green_rectangle.png", &brickTextures[GREEN], renderer);
 	loadPNGintoTexture("assets/puzzlepack/png/element_red_rectangle.png", &brickTextures[RED], renderer);
 	loadPNGintoTexture("assets/puzzlepack/png/element_yellow_rectangle.png", &brickTextures[YELLOW], renderer);

@@ -2,10 +2,10 @@
 
 // Merge into Resources, make all text textures at start.
 
-TextComponent::TextComponent(SDLHelper *sdlComponent, Resources *resources) {
+TextComponent::TextComponent(SDLSystem *sdl, Resources *resources) {
 	this->textColor = { 255, 0,0 }; // White for text.
 	this->font = resources->font;
-	this->renderer = sdlComponent->getRenderer();
+	this->renderer = sdl->getRenderer();
 }
 
 // TODO(chesetti): Create all resources at start and reuse. Fix SDL_Render stuff.

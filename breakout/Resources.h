@@ -1,5 +1,5 @@
 #pragma once
-#include "sdl_helper.h"
+#include "sdl_system.h"
 
 enum BrickColors {
 	RED = 0,
@@ -19,7 +19,7 @@ public:
 	SDL_Texture *greyBallTexture;
 	SDL_Texture *blueBallTexture;
 	TTF_Font *font = NULL;
-	Resources(SDLHelper *helper);
+	Resources(SDLSystem *sdl);
 	void loadPNGintoTexture(char *fpath, SDL_Texture **texture, SDL_Renderer *renderer);
 	void loadTTFfont(char *fpath, int font_size, TTF_Font **font);
 	~Resources();

@@ -1,19 +1,17 @@
-#include "sdl_helper.h"
+#include "sdl_system.h"
 
 #include "game_constants.h"
 using namespace GameConstants;
 
 
-// TODO(chesetti): Rename to this something like SDL_Utility
-
 // Initializes SDL libraries.
 
-SDLHelper::SDLHelper() {
+SDLSystem::SDLSystem() {
 	initLibs();
 	initVideo();
 }
 
-void SDLHelper::initLibs() {
+void SDLSystem::initLibs() {
 	// Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		SDL_Log("Unable to initialize SDL: %s\n", SDL_GetError());
@@ -35,7 +33,7 @@ void SDLHelper::initLibs() {
 
 }
 
-void SDLHelper::initVideo() {
+void SDLSystem::initVideo() {
 
 	// Create Window and Renderer.
 	SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN, &window, &renderer);
@@ -55,11 +53,11 @@ void SDLHelper::initVideo() {
 	}
 }
 
-SDL_Renderer* SDLHelper::getRenderer() {
+SDL_Renderer* SDLSystem::getRenderer() {
 	return renderer;
 }
 
-SDLHelper::~SDLHelper() {
+SDLSystem::~SDLSystem() {
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
