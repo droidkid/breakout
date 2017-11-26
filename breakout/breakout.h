@@ -18,6 +18,7 @@ class Breakout : public Screen {
 	CollisionEngine collisionEngine;
 	EventQueue *events;
 	Graphics *graphics;
+	Resources *resources;
 
 public:
 	Breakout(Resources *resource, EventQueue *events, Graphics *graphics);
