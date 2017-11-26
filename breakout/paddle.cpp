@@ -11,22 +11,20 @@
 using namespace std;
 using namespace GameConstants;
 
-void PaddlePhysics::update(int mouse_x, int mouse_y) {
-	if (mouse_x > SCREEN_WIDTH - getWidth()) {
-		setX(SCREEN_WIDTH - getWidth());
-	}
-	else {
-		setX(mouse_x);
-	}
-}
-
 Paddle::Paddle() {
-	this->paddlePhysics = new PaddlePhysics();
-	this->physicsComponent = paddlePhysics;
+	this->physicsComponent = new PaddlePhysics();
 	this->graphicsComponent = new GraphicsComponent(physicsComponent);
 }
 
 
-void Paddle::update(int mouse_x, int mouse_y) {
-	paddlePhysics->update(mouse_x, mouse_y);
+void Paddle::update(EventQueue *eventQueue) {
+	int mouse_x = eventQueue->getMousePos().x;
+	int mouse_y = eventQueue->getMousePos().y;
+	if (mouse_x > SCREEN_WIDTH - physicsComponent->getWidth()) {
+		physicsComponent->setX(SCREEN_WIDTH - physicsComponent->getWidth());
+	}
+	else {
+		physicsComponent->setX(mouse_x);
+	}
+	physicsComponent->update();
 }

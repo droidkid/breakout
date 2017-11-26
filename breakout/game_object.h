@@ -1,6 +1,7 @@
 #pragma once
 #include "physics_component.h"
 #include "graphics_component.h"
+#include "event_queue.h"
 
 class GameObject {
 protected:
@@ -14,7 +15,7 @@ public:
 	~GameObject();
 	PhysicsComponent* getPhysics();
 	GraphicsComponent *getGraphics();
-	void update(); // Why is this not virtual? Pass in EventQueue here
+	void update(EventQueue *eventQueue);
 	virtual void draw(double interpolation, Graphics *graphics);
 };
 

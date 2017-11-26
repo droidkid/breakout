@@ -43,11 +43,10 @@ Breakout::Breakout(Resources *resources, EventQueue *events, Graphics *graphics)
 }
 
 void Breakout::update() {
-	Vec2d mouse_pos = events->getMousePos();
-	ball.update();
-	paddle.update(mouse_pos.x, mouse_pos.y);
+	ball.update(events);
+	paddle.update(events);
 	for (int i = 0; i < NUM_BRICKS; i++) {
-		bricks[i].update();
+		bricks[i].update(events);
 	}
 	collisionEngine.update();
 }
