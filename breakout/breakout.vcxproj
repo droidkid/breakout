@@ -136,6 +136,7 @@
     <ClCompile Include="game_loop.cpp" />
     <ClCompile Include="game_object.cpp" />
     <ClCompile Include="geometry.cpp" />
+    <ClCompile Include="graphics.cpp" />
     <ClCompile Include="graphics_component.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="paddle.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="game_constants.h" />
     <ClInclude Include="game_object.h" />
     <ClInclude Include="geometry.h" />
+    <ClInclude Include="graphics.h" />
     <ClInclude Include="graphics_component.h" />
     <ClInclude Include="paddle.h" />
     <ClInclude Include="physics_component.h" />

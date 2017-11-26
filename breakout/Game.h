@@ -5,6 +5,7 @@
 #include "game_loop.h"
 #include "game.h"
 #include "event_queue.h"
+#include "graphics.h"
 
 class Game
 {
@@ -13,6 +14,7 @@ class Game
 
 	// Libraries that have a specific purpose.
 	SDLSystem *sdl;
+	Graphics *graphics;
 
 	// Classes that represent processes that run.
 	GameLoop *gameLoop;

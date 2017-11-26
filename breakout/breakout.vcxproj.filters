@@ -37,6 +37,18 @@
     <Filter Include="Header Files\game">
       <UniqueIdentifier>{f1724275-e116-49b8-9b8f-713a6b770715}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{70f5301f-0224-45b0-821c-1d68923fabc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine">
+      <UniqueIdentifier>{4a172326-fa9c-426a-aa0a-89bfa7741154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\graphics">
+      <UniqueIdentifier>{7decdae6-1789-42cb-8346-a943578b552d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graphics">
+      <UniqueIdentifier>{6ef83e05-995e-41be-acb2-59b2bd445c29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,9 +81,6 @@
     <ClCompile Include="breakout.cpp">
       <Filter>Source Files\screens</Filter>
     </ClCompile>
-    <ClCompile Include="game_loop.cpp">
-      <Filter>Source Files\game</Filter>
-    </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
@@ -84,11 +93,17 @@
     <ClCompile Include="text_component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="event_queue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sdl_system.cpp">
       <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game_loop.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="event_queue.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics.cpp">
+      <Filter>Source Files\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,23 +140,26 @@
     <ClInclude Include="game_constants.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="game_loop.h">
-      <Filter>Header Files\game</Filter>
-    </ClInclude>
     <ClInclude Include="resources.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
     <ClInclude Include="screen.h">
       <Filter>Header Files\screens</Filter>
     </ClInclude>
-    <ClInclude Include="event_queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="text_component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdl_system.h">
       <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game_loop.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="event_queue.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics.h">
+      <Filter>Header Files\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

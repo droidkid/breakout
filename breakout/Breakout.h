@@ -9,17 +9,18 @@
 #include "collision_engine.h"
 #include "screen.h"
 #include "event_queue.h"
+#include "graphics.h"
 
 class Breakout : public Screen {
-	SDL_Renderer *renderer; // Why is this a field?
 	Ball ball;
 	Brick bricks[GameConstants::NUM_BRICKS];
 	Paddle paddle;
 	CollisionEngine collisionEngine;
 	EventQueue *events;
+	Graphics *graphics;
 
 public:
-	Breakout(SDLSystem *sdl, Resources *resource, EventQueue *events);
+	Breakout(Resources *resource, EventQueue *events, Graphics *graphics);
 	void update();
 	void draw();
 	~Breakout();

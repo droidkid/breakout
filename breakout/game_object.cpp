@@ -10,8 +10,8 @@ GameObject::GameObject(PhysicsComponent *physicsComponent, GraphicsComponent *gr
 	physicsComponent(physicsComponent), graphicsComponent(graphicsComponent) {
 }
 
-void GameObject::draw(double interpolation) {
-	graphicsComponent->draw(interpolation);
+void GameObject::draw(double interpolation, Graphics *graphics) {
+	graphicsComponent->draw(interpolation, graphics);
 }
 
 void GameObject::update() {

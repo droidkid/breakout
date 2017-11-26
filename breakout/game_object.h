@@ -15,6 +15,6 @@ public:
 	PhysicsComponent* getPhysics();
 	GraphicsComponent *getGraphics();
 	void update(); // Why is this not virtual? Pass in EventQueue here
-	virtual void draw(double interpolation); // Pass in Graphics here
+	virtual void draw(double interpolation, Graphics *graphics);
 };
 

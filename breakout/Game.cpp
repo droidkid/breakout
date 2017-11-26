@@ -5,8 +5,9 @@
 Game::Game() {
 	sdl = new SDLSystem();
 	events = new EventQueue();
+	graphics = new Graphics(sdl);
 	resources = new Resources(sdl);
-	breakout = new Breakout(sdl, resources, events);
+	breakout = new Breakout(resources, events, graphics);
 	gameLoop = new GameLoop(breakout, events);
 }
 

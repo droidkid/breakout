@@ -7,7 +7,7 @@ public:
 	Brick();
 	int isExists();
 	void makeDisappear();
-	virtual void draw(double interpolation);
+	virtual void draw(double interpolation, Graphics *graphics);
 	~Brick();
 };
 
