@@ -5,12 +5,9 @@
 Game::Game() {
 	sdl = new SDLSystem();
 	resources = new Resources(sdl);
-	text = new TextComponent(sdl, resources);
 	events = new EventQueue();
-	breakout = new Breakout(resources, sdl, events);
-	gameLoop = new GameLoop(breakout, events, text);
-	// TODO(chesetti): Initialize all screens here and pass them to game loop
-	// Probably add some flags based on development mode or normal node.
+	breakout = new Breakout(sdl, resources, events);
+	gameLoop = new GameLoop(breakout, events);
 }
 
 void Game::run() {

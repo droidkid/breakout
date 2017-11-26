@@ -9,17 +9,16 @@ using namespace GameConstants;
 
 // Screen for breakout game.
 
-Breakout::Breakout(Resources *resources, SDLSystem *sdl, EventQueue *events) {
+Breakout::Breakout(SDLSystem *sdl, Resources *resources, EventQueue *events) {
 	this->events = events;
 
-	renderer = sdl ->getRenderer();
+	renderer = sdl->getRenderer();
 
-	// TODO(chesetti): This construction logic needs to be better organized.
+	// Initialize all the game objects.
 	ball.getPhysics()->setVelocity(BALL_VELOCITY, BALL_VELOCITY);
 	ball.getPhysics()->setXYAndSize(500, 400, BALL_SIZE, BALL_SIZE);
-	ball.getGraphics()->setTexture(resources->greyBallTexture);
-	ball.getGraphics()->setRenderer(renderer);
 	ball.getGraphics()->setTexture(resources->blueBallTexture);
+	ball.getGraphics()->setRenderer(renderer);
 
 	int brick_cnt = 0;
 	int color_cnt = 0;
@@ -40,6 +39,7 @@ Breakout::Breakout(Resources *resources, SDLSystem *sdl, EventQueue *events) {
 	paddle.getGraphics()->setTexture(resources->paddleTexture);
 	paddle.getGraphics()->setRenderer(renderer);
 
+	// Tell the CollisionEngine about the newly created objects.
 	collisionEngine.setBall(&ball);
 	collisionEngine.setBricks(bricks, NUM_BRICKS);
 	collisionEngine.setPaddle(&paddle);

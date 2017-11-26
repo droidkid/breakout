@@ -8,10 +8,9 @@
 
 using namespace GameConstants;
 
-GameLoop::GameLoop(Breakout *breakout, EventQueue *events, TextComponent *textUtility) {
+GameLoop::GameLoop(Breakout *breakout, EventQueue *events) {
 	this->breakout = breakout;
 	this->events = events;
-	this->textUtility = textUtility;
 }
 
 void GameLoop::runLoop() {
@@ -27,8 +26,7 @@ void GameLoop::runLoop() {
 			breakout->update();
 			lag_ms -= MS_PER_UPDATE;
 		}
-		//breakout->draw();
-		textUtility->drawText("Hello Text!", Vec2d(0, 0));
+		breakout->draw();
 		quit_event_received = events->quitGame();
 	}
 }

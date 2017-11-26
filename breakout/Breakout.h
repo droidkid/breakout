@@ -19,7 +19,7 @@ class Breakout : public Screen {
 	EventQueue *events;
 
 public:
-	Breakout(Resources *resources, SDLSystem *sdl, EventQueue *events);
+	Breakout(SDLSystem *sdl, Resources *resource, EventQueue *events);
 	void update();
 	void draw();
 	~Breakout();
