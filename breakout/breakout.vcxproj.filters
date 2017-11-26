@@ -90,9 +90,6 @@
     <ClCompile Include="screen.cpp">
       <Filter>Source Files\screens</Filter>
     </ClCompile>
-    <ClCompile Include="text_component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sdl_system.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
@@ -145,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="screen.h">
       <Filter>Header Files\screens</Filter>
-    </ClInclude>
-    <ClInclude Include="text_component.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdl_system.h">
       <Filter>Header Files\game</Filter>

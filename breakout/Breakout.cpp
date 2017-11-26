@@ -12,6 +12,7 @@ using namespace GameConstants;
 Breakout::Breakout(Resources *resources, EventQueue *events, Graphics *graphics) {
 	this->events = events;
 	this->graphics = graphics;
+	this->resources = resources;
 
 	// Initialize all the game objects.
 	ball.getPhysics()->setVelocity(BALL_VELOCITY, BALL_VELOCITY);
@@ -39,7 +40,6 @@ Breakout::Breakout(Resources *resources, EventQueue *events, Graphics *graphics)
 	collisionEngine.setBall(&ball);
 	collisionEngine.setBricks(bricks, NUM_BRICKS);
 	collisionEngine.setPaddle(&paddle);
-
 }
 
 void Breakout::update() {
@@ -58,6 +58,7 @@ void Breakout::draw() {
 		bricks[i].draw(0.0, graphics);
 	}
 	paddle.draw(0.0, graphics);
+	graphics->drawText("WELCOME_TO_BREAKOUT!", Vec2d(10, 10), resources->font, {255, 255, 255});
 	graphics->renderScreen();
 }
 
