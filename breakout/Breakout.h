@@ -11,7 +11,7 @@
 #include "event_queue.h"
 
 class Breakout : public Screen {
-	SDL_Renderer *renderer;
+	SDL_Renderer *renderer; // Why is this a field?
 	Ball ball;
 	Brick bricks[GameConstants::NUM_BRICKS];
 	Paddle paddle;

@@ -18,6 +18,7 @@ Breakout::Breakout(SDLSystem *sdl, Resources *resources, EventQueue *events) {
 	ball.getPhysics()->setVelocity(BALL_VELOCITY, BALL_VELOCITY);
 	ball.getPhysics()->setXYAndSize(500, 400, BALL_SIZE, BALL_SIZE);
 	ball.getGraphics()->setTexture(resources->blueBallTexture);
+	ball.getGraphics()->setRenderer(renderer);
 
 	int brick_cnt = 0;
 	int color_cnt = 0;
@@ -25,6 +26,7 @@ Breakout::Breakout(SDLSystem *sdl, Resources *resources, EventQueue *events) {
 		for (int j = 0; j < BRICK_COLS; j++) {
 			bricks[brick_cnt].getPhysics()->setXYAndSize(j * BRICK_WIDTH, i * BRICK_HEIGHT + 100, BRICK_WIDTH, BRICK_HEIGHT);
 			bricks[brick_cnt].getGraphics()->setTexture(resources->brickTextures[color_cnt]);
+			bricks[brick_cnt].getGraphics()->setRenderer(renderer);
 			brick_cnt++;
 		}
 		color_cnt++;
@@ -35,6 +37,7 @@ Breakout::Breakout(SDLSystem *sdl, Resources *resources, EventQueue *events) {
 
 	paddle.getPhysics()->setXYAndSize(400, 500, 110, 20);
 	paddle.getGraphics()->setTexture(resources->paddleTexture);
+	paddle.getGraphics()->setRenderer(renderer);
 
 	// Tell the CollisionEngine about the newly created objects.
 	collisionEngine.setBall(&ball);
