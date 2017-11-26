@@ -7,7 +7,7 @@
 class GraphicsComponent
 {
 	SDL_Rect boundingBox;
-	SDL_Renderer *renderer;
+	SDL_Renderer *renderer; // Remove this field. Pass this as a method parameter.
 	SDL_Texture *texture;
 	PhysicsComponent *physicsComponent;
 

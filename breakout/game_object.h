@@ -14,8 +14,7 @@ public:
 	~GameObject();
 	PhysicsComponent* getPhysics();
 	GraphicsComponent *getGraphics();
-	// If adding new components, update the update() and draw() methods too
-	void update();
-	virtual void draw(double interpolation);
+	void update(); // Why is this not virtual? Pass in EventQueue here
+	virtual void draw(double interpolation); // Pass in Graphics here
 };
 

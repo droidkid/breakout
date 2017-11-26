@@ -8,11 +8,18 @@
 
 class Game
 {
-	SDLSystem *sdl;
+	// Holder for all assets.
 	Resources *resources;
+
+	// Libraries that have a specific purpose.
+	SDLSystem *sdl;
+
+	// Classes that represent processes that run.
 	GameLoop *gameLoop;
-	Breakout *breakout;
 	EventQueue *events;
+
+	// Classes that represent the state of the game.
+	Breakout *breakout;
 public:
 	Game();
 	void run();
