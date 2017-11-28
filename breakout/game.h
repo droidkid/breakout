@@ -4,7 +4,7 @@
 #include "resources.h"
 #include "game_loop.h"
 #include "game.h"
-#include "event_queue.h"
+#include "input_queue.h"
 #include "graphics.h"
 
 class Game
@@ -18,7 +18,7 @@ class Game
 
 	// Classes that represent processes that run.
 	GameLoop *gameLoop;
-	EventQueue *events;
+	InputQueue *inputQueue;
 
 	// Classes that represent the state of the game.
 	Breakout *breakout;

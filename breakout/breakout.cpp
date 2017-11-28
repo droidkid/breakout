@@ -9,8 +9,8 @@ using namespace GameConstants;
 
 // Screen for breakout game.
 
-Breakout::Breakout(Resources *resources, EventQueue *events, Graphics *graphics) {
-	this->events = events;
+Breakout::Breakout(Resources *resources, InputQueue *inputQueue, Graphics *graphics) {
+	this->inputQueue = inputQueue;
 	this->graphics = graphics;
 	this->resources = resources;
 
@@ -43,10 +43,10 @@ Breakout::Breakout(Resources *resources, EventQueue *events, Graphics *graphics)
 }
 
 void Breakout::update() {
-	ball.update(events);
-	paddle.update(events);
+	ball.update(inputQueue);
+	paddle.update(inputQueue);
 	for (int i = 0; i < NUM_BRICKS; i++) {
-		bricks[i].update(events);
+		bricks[i].update(inputQueue);
 	}
 	collisionEngine.update();
 }
@@ -61,6 +61,7 @@ void Breakout::draw() {
 	graphics->drawText("WELCOME_TO_BREAKOUT!", Vec2d(10, 10), resources->font, {255, 255, 255});
 	graphics->renderScreen();
 }
+
 
 
 Breakout::~Breakout() {

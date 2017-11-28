@@ -8,7 +8,7 @@
 #include "sdl_system.h"
 #include "collision_engine.h"
 #include "screen.h"
-#include "event_queue.h"
+#include "input_queue.h"
 #include "graphics.h"
 
 class Breakout : public Screen {
@@ -16,12 +16,12 @@ class Breakout : public Screen {
 	Brick bricks[GameConstants::NUM_BRICKS];
 	Paddle paddle;
 	CollisionEngine collisionEngine;
-	EventQueue *events;
+	InputQueue *inputQueue;
 	Graphics *graphics;
 	Resources *resources;
 
 public:
-	Breakout(Resources *resource, EventQueue *events, Graphics *graphics);
+	Breakout(Resources *resource, InputQueue *inputQueue, Graphics *graphics);
 	void update();
 	void draw();
 	~Breakout();
