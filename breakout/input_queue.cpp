@@ -1,4 +1,4 @@
-#include "event_queue.h"
+#include "input_queue.h"
 
 #include <SDL.h>
 
@@ -9,11 +9,11 @@
 	also kept track of.
 */
 
-EventQueue::EventQueue() {
+InputQueue::InputQueue() {
 	quit_event_received = false;
 }
 
-void EventQueue::pollInput() {
+void InputQueue::pollInput() {
 	SDL_PollEvent(&event);
 	if (event.type == SDL_QUIT) {
 		quit_event_received = true;
@@ -24,14 +24,14 @@ void EventQueue::pollInput() {
 	}
 }
 
-Vec2d EventQueue::getMousePos() {
+Vec2d InputQueue::getMousePos() {
 	return mouse_pos;
 }
 
-bool EventQueue::quitGame() {
+bool InputQueue::quitGame() {
 	return quit_event_received;
 }
 
 
-EventQueue::~EventQueue() {
+InputQueue::~InputQueue() {
 }

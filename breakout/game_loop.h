@@ -1,17 +1,17 @@
 #pragma once
 
 #include "breakout.h"
-#include "event_queue.h"
+#include "input_queue.h"
 
 class GameLoop {
 	int current_tick_ms;
 	int lag_ms;
 	bool keep_loop_running;
 	Breakout *breakout;
-	EventQueue *events;
+	InputQueue *inputQueue;
 
 public:
-	GameLoop(Breakout *breakout, EventQueue *events);
+	GameLoop(Breakout *breakout, InputQueue *inputQueue);
 	void runLoop();
 	~GameLoop();
 };

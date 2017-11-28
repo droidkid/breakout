@@ -8,9 +8,9 @@
 
 using namespace GameConstants;
 
-GameLoop::GameLoop(Breakout *breakout, EventQueue *events) {
+GameLoop::GameLoop(Breakout *breakout, InputQueue *inputQueue) {
 	this->breakout = breakout;
-	this->events = events;
+	this->inputQueue = inputQueue;
 }
 
 void GameLoop::runLoop() {
@@ -18,7 +18,7 @@ void GameLoop::runLoop() {
 	current_tick_ms = SDL_GetTicks();
 
 	while (!quit_event_received) {
-		events->pollInput();
+		inputQueue->pollInput();
 		lag_ms += SDL_GetTicks() - current_tick_ms;
 		current_tick_ms = SDL_GetTicks();
 
@@ -27,7 +27,7 @@ void GameLoop::runLoop() {
 			lag_ms -= MS_PER_UPDATE;
 		}
 		breakout->draw();
-		quit_event_received = events->quitGame();
+		quit_event_received = inputQueue->quitGame();
 	}
 }
 

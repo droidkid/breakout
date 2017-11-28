@@ -96,11 +96,11 @@
     <ClCompile Include="game_loop.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="event_queue.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
     <ClCompile Include="graphics.cpp">
       <Filter>Source Files\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="input_queue.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,11 +149,11 @@
     <ClInclude Include="game_loop.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="event_queue.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="graphics.h">
       <Filter>Header Files\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="input_queue.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

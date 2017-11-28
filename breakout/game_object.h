@@ -1,7 +1,7 @@
 #pragma once
 #include "physics_component.h"
 #include "graphics_component.h"
-#include "event_queue.h"
+#include "input_queue.h"
 
 class GameObject {
 protected:
@@ -15,7 +15,7 @@ public:
 	~GameObject();
 	PhysicsComponent* getPhysics();
 	GraphicsComponent *getGraphics();
-	void update(EventQueue *eventQueue);
+	void update(InputQueue *inputQueue);
 	virtual void draw(double interpolation, Graphics *graphics);
 };
 

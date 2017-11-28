@@ -16,5 +16,5 @@ class Paddle : public GameObject {
 	PaddlePhysics *paddlePhysics;
 public:
 	Paddle();
-	void update(EventQueue *eventQueue);
+	void update(InputQueue *inputQueue);
 };

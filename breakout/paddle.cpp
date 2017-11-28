@@ -17,9 +17,9 @@ Paddle::Paddle() {
 }
 
 
-void Paddle::update(EventQueue *eventQueue) {
-	int mouse_x = eventQueue->getMousePos().x;
-	int mouse_y = eventQueue->getMousePos().y;
+void Paddle::update(InputQueue *inputQueue) {
+	int mouse_x = inputQueue->getMousePos().x;
+	int mouse_y = inputQueue->getMousePos().y;
 	if (mouse_x > SCREEN_WIDTH - physicsComponent->getWidth()) {
 		physicsComponent->setX(SCREEN_WIDTH - physicsComponent->getWidth());
 	}

@@ -14,7 +14,7 @@ void GameObject::draw(double interpolation, Graphics *graphics) {
 	graphicsComponent->draw(interpolation, graphics);
 }
 
-void GameObject::update(EventQueue *eventQueue) {
+void GameObject::update(InputQueue *inputQueue) {
 	physicsComponent->update();
 }
 
