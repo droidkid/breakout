@@ -139,6 +139,7 @@
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="graphics_component.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="notifier.cpp" />
     <ClCompile Include="paddle.cpp" />
     <ClCompile Include="physics_component.cpp" />
     <ClCompile Include="resources.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="breakout.h" />
     <ClInclude Include="brick.h" />
     <ClInclude Include="collision_engine.h" />
+    <ClInclude Include="event.h" />
     <ClInclude Include="input_queue.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_loop.h" />
@@ -158,6 +160,8 @@
     <ClInclude Include="geometry.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="graphics_component.h" />
+    <ClInclude Include="notifier.h" />
+    <ClInclude Include="observer.h" />
     <ClInclude Include="paddle.h" />
     <ClInclude Include="physics_component.h" />
     <ClInclude Include="resources.h" />

@@ -4,6 +4,7 @@
 #include "resources.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string>
 
 using namespace GameConstants;
 
@@ -13,6 +14,7 @@ Breakout::Breakout(Resources *resources, InputQueue *inputQueue, Graphics *graph
 	this->inputQueue = inputQueue;
 	this->graphics = graphics;
 	this->resources = resources;
+	this->score_value = 0;
 
 	// Initialize all the game objects.
 	ball.getPhysics()->setVelocity(BALL_VELOCITY, BALL_VELOCITY);
@@ -25,6 +27,7 @@ Breakout::Breakout(Resources *resources, InputQueue *inputQueue, Graphics *graph
 		for (int j = 0; j < BRICK_COLS; j++) {
 			bricks[brick_cnt].getPhysics()->setXYAndSize(j * BRICK_WIDTH, i * BRICK_HEIGHT + 100, BRICK_WIDTH, BRICK_HEIGHT);
 			bricks[brick_cnt].getGraphics()->setTexture(resources->brickTextures[color_cnt]);
+			bricks[brick_cnt].addObserver(this);
 			brick_cnt++;
 		}
 		color_cnt++;
@@ -59,10 +62,22 @@ void Breakout::draw() {
 	}
 	paddle.draw(0.0, graphics);
 	graphics->drawText("WELCOME_TO_BREAKOUT!", Vec2d(10, 10), resources->font, {255, 255, 255});
+	sprintf_s(score_text, "SCORE: %d", score_value);
+	graphics->drawText(score_text, Vec2d(700, 10), resources->font, {255, 255, 255});
 	graphics->renderScreen();
 }
 
-
+void Breakout::update(Event event) {
+	switch (event) {
+	case BRICK_DISAPPEAR:
+		score_value++;
+		break;
+	case BALL_FALL_BELOW_SCREEN:
+		break;
+	default:
+		break;
+	}
+}
 
 Breakout::~Breakout() {
 }

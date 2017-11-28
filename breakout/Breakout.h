@@ -10,8 +10,9 @@
 #include "screen.h"
 #include "input_queue.h"
 #include "graphics.h"
+#include "observer.h"
 
-class Breakout : public Screen {
+class Breakout : public Screen, Observer {
 	Ball ball;
 	Brick bricks[GameConstants::NUM_BRICKS];
 	Paddle paddle;
@@ -20,10 +21,14 @@ class Breakout : public Screen {
 	Graphics *graphics;
 	Resources *resources;
 
+	int score_value;
+	char score_text[20];
+
 public:
 	Breakout(Resources *resource, InputQueue *inputQueue, Graphics *graphics);
 	void update();
 	void draw();
+	void update(Event event);
 	~Breakout();
 };
 
