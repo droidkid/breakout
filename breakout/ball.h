@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 
 #include "game_object.h"
+#include "game_event_notifier.h"
 
 class Ball : public GameObject {
 

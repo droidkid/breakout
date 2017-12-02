@@ -1,8 +1,8 @@
 #pragma once
 
-#include "event.h"
+#include "event_name.h"
 
 class Observer {
 public:
-	virtual void update(Event event) = 0;
+	virtual void update(EventName event) = 0; // Add a data parameter? Not needed now, but might be needed later.
 };

@@ -8,12 +8,21 @@ using namespace std;
 #include "game_constants.h"
 #include "ball.h"
 #include "physics_component.h"
+#include "game_event_notifier.h"
 
 #include <stdio.h>
 
 using namespace GameConstants;
 
 class BallPhysics : public PhysicsComponent {
+
+	GameEventNotifier *gameEventNotifier;
+
+public:
+	BallPhysics(GameEventNotifier *gameEventNotifier) {
+		this->gameEventNotifier = gameEventNotifier;
+	}
+
 	void update() {
 		if (box.x <= 0 && vel.x < 0) {
 			vel.x = -vel.x;
@@ -26,13 +35,15 @@ class BallPhysics : public PhysicsComponent {
 		}
 		if (box.y >= SCREEN_HEIGHT && vel.y > 0) {
 			vel.y = -vel.y;
+			gameEventNotifier->notify(BALL_FALL_BELOW_SCREEN);
 		}
 
 		PhysicsComponent::update();
 	}
 };
 
-Ball::Ball() {
-	this->physicsComponent = new BallPhysics();
+Ball::Ball() : GameObject() {
+	this->gameEventNotifier = new GameEventNotifier();
+	this->physicsComponent = new BallPhysics(this->gameEventNotifier);
 	this->graphicsComponent = new GraphicsComponent(physicsComponent);
 }

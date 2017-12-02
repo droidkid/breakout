@@ -1,11 +1,11 @@
 #include "brick.h"
-#include "event.h"
+#include "game_event_notifier.h"
 
 Brick::Brick() : GameObject() {
 	this->exists = 1;
+	this->gameEventNotifier = new GameEventNotifier();
 	this->physicsComponent = new PhysicsComponent();
 	this->graphicsComponent = new GraphicsComponent(physicsComponent);
-	this->notifier = new Notifier();
 }
 
 int Brick::isExists() {
@@ -14,13 +14,9 @@ int Brick::isExists() {
 
 void Brick::makeDisappear() {
 	if (exists == 1) {
-		notifier->notify(BRICK_DISAPPEAR);
+		gameEventNotifier->notify(BRICK_DISAPPEAR);
 	}
 	exists = 0;
-}
-
-void Brick::addObserver(Observer *observer) {
-	this->notifier->addObserver(observer);
 }
 
 void Brick::draw(double interpolation, Graphics *graphics) {

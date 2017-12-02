@@ -102,8 +102,8 @@
     <ClCompile Include="input_queue.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="notifier.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="game_even_notifier.cpp">
+      <Filter>Source Files\game_objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,14 +158,14 @@
     <ClInclude Include="input_queue.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="event_name.h">
+      <Filter>Header Files\game_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="game_event_notifier.h">
+      <Filter>Header Files\game_objects</Filter>
+    </ClInclude>
     <ClInclude Include="observer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="event.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="notifier.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\game_objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

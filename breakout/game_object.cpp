@@ -4,10 +4,7 @@ GameObject::GameObject() {
 	// Responsibility of sub objects to specify these.
 	this->physicsComponent = NULL;
 	this->graphicsComponent = NULL;
-}
-
-GameObject::GameObject(PhysicsComponent *physicsComponent, GraphicsComponent *graphicsComponent) :
-	physicsComponent(physicsComponent), graphicsComponent(graphicsComponent) {
+	this->gameEventNotifier = NULL;
 }
 
 void GameObject::draw(double interpolation, Graphics *graphics) {
@@ -20,6 +17,10 @@ void GameObject::update(InputQueue *inputQueue) {
 
 GraphicsComponent* GameObject::getGraphics() {
 	return this->graphicsComponent;
+}
+
+GameEventNotifier* GameObject::getGameEventNotifier() {
+	return this->gameEventNotifier;
 }
 
 PhysicsComponent* GameObject::getPhysics() {
