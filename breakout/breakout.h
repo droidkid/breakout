@@ -28,7 +28,7 @@ public:
 	Breakout(Resources *resource, InputQueue *inputQueue, Graphics *graphics);
 	void update();
 	void draw();
-	void update(Event event);
+	void update(EventName event);
 	~Breakout();
 };
 
