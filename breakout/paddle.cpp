@@ -12,7 +12,7 @@ using namespace std;
 using namespace GameConstants;
 
 Paddle::Paddle() {
-	this->physicsComponent = new PaddlePhysics();
+	this->physicsComponent = new PhysicsComponent();
 	this->graphicsComponent = new GraphicsComponent(physicsComponent);
 }
 

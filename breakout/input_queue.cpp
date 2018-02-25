@@ -11,6 +11,7 @@
 
 InputQueue::InputQueue() {
 	quit_event_received = false;
+	mouse_click_event = false;
 }
 
 void InputQueue::pollInput() {
@@ -22,10 +23,23 @@ void InputQueue::pollInput() {
 		mouse_pos.x = event.motion.x;
 		mouse_pos.y = event.motion.y;
 	}
+	if (event.type == SDL_MOUSEBUTTONDOWN) {
+		if (event.button.button == SDL_BUTTON_LEFT) {
+			mouse_click_event = true;
+		}
+	}
 }
 
 Vec2d InputQueue::getMousePos() {
 	return mouse_pos;
+}
+
+bool InputQueue::hasMouseLeftClickEvent() {
+	return mouse_click_event;
+}
+
+void InputQueue::consumeMouseLeftClickEvent() {
+	mouse_click_event = false;
 }
 
 bool InputQueue::quitGame() {

@@ -7,7 +7,7 @@ class GameLoop {
 	int current_tick_ms;
 	int lag_ms;
 	bool keep_loop_running;
-	Breakout *breakout;
+	Breakout *breakout; // Make this Screens.
 	InputQueue *inputQueue;
 
 public:
