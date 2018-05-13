@@ -16,7 +16,6 @@ void Graphics::drawText(char * text, Vec2d pos, TTF_Font *font, SDL_Color textCo
 	SDL_Surface *textSurface = TTF_RenderText_Solid(font, text, textColor);
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
-	SDL_FreeSurface(textSurface);
 
 	SDL_Rect boundingBox;
 	boundingBox.x = pos.x;
@@ -25,6 +24,7 @@ void Graphics::drawText(char * text, Vec2d pos, TTF_Font *font, SDL_Color textCo
 	boundingBox.h = textSurface->h;
 
 	SDL_RenderCopy(renderer, texture, NULL, &boundingBox);
+	SDL_FreeSurface(textSurface);
 	SDL_DestroyTexture(texture);
 }
 

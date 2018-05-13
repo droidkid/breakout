@@ -10,7 +10,7 @@ namespace GameConstants {
 	const double BALL_VELOCITY = 0.45;
 	const int BALL_SIZE = 15;
 
-	const int BRICK_ROWS = 7;
+	const int BRICK_ROWS = 1;
 	const int BRICK_COLS = 10;
 	const int BRICK_HEIGHT = 25;
 	const int BRICK_WIDTH = 80;

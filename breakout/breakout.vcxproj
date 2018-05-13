@@ -143,7 +143,6 @@
     <ClCompile Include="paddle.cpp" />
     <ClCompile Include="physics_component.cpp" />
     <ClCompile Include="resources.cpp" />
-    <ClCompile Include="screen.cpp" />
     <ClCompile Include="sdl_system.cpp" />
   </ItemGroup>
   <ItemGroup>

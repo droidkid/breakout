@@ -19,6 +19,10 @@ void Brick::makeDisappear() {
 	exists = 0;
 }
 
+void Brick::makeReappear() {
+	exists = 1;
+}
+
 void Brick::draw(double interpolation, Graphics *graphics) {
 	if (exists) {
 		GameObject::draw(interpolation, graphics);

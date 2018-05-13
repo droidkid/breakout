@@ -34,7 +34,6 @@ public:
 			vel.y = -vel.y;
 		}
 		if (box.y >= SCREEN_HEIGHT && vel.y > 0) {
-			vel.y = -vel.y;
 			gameEventNotifier->notify(BALL_FALL_BELOW_SCREEN);
 		}
 

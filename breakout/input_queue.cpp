@@ -15,17 +15,18 @@ InputQueue::InputQueue() {
 }
 
 void InputQueue::pollInput() {
-	SDL_PollEvent(&event);
-	if (event.type == SDL_QUIT) {
-		quit_event_received = true;
-	}
-	if (event.type == SDL_MOUSEMOTION) {
-		mouse_pos.x = event.motion.x;
-		mouse_pos.y = event.motion.y;
-	}
-	if (event.type == SDL_MOUSEBUTTONDOWN) {
-		if (event.button.button == SDL_BUTTON_LEFT) {
-			mouse_click_event = true;
+	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_QUIT) {
+			quit_event_received = true;
+		}
+		if (event.type == SDL_MOUSEMOTION) {
+			mouse_pos.x = event.motion.x;
+			mouse_pos.y = event.motion.y;
+		}
+		if (event.type == SDL_MOUSEBUTTONDOWN) {
+			if (event.button.button == SDL_BUTTON_LEFT) {
+				mouse_click_event = true;
+			}
 		}
 	}
 }

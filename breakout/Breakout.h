@@ -12,6 +12,13 @@
 #include "graphics.h"
 #include "observer.h"
 
+enum GameState {
+	START_SCREEN,
+	IN_GAME,
+	GAME_OVER_WON,
+	GAME_OVER_LOST
+};
+
 class Breakout : public Screen, Observer {
 	Ball ball;
 	Brick bricks[GameConstants::NUM_BRICKS];
@@ -20,6 +27,7 @@ class Breakout : public Screen, Observer {
 	InputQueue *inputQueue;
 	Graphics *graphics;
 	Resources *resources;
+	GameState curGameState;
 
 	int score_value;
 	char score_text[20];

@@ -87,9 +87,6 @@
     <ClCompile Include="resources.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="screen.cpp">
-      <Filter>Source Files\screens</Filter>
-    </ClCompile>
     <ClCompile Include="sdl_system.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
