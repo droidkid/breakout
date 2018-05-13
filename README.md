@@ -2,6 +2,8 @@
 
 Simple Breakout game written in C++ using SDL2. For educational purposes. 
 
+Try it out at https://chesetti.itch.io/breakout
+
 Art Assets - http://kenney.nl/assets
 A lot of help from - http://gameprogrammingpatterns.com
 
